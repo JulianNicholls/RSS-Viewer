@@ -1,30 +1,35 @@
 <?php
 //---------------------------------------------------------------------------
 //
-    $url = "http://feeds.bbci.co.uk/news/rss.xml";
-//    $url = "http://rss1.smashingmagazine.com/feed/";
-//    $url = "https://www.ruby-lang.org/en/feeds/news.rss";
+    $default_url = "http://feeds.bbci.co.uk/news/rss.xml";
+//    $default_url = "http://rss1.smashingmagazine.com/feed/";
+//    $default_url = "https://www.ruby-lang.org/en/feeds/news.rss";
+//    $default_url = "http://www.nasa.gov/rss/image_of_the_day.rss"
+//    $default_url = "http://www.pcworld.com/index.rss"
 //
 //---------------------------------------------------------------------------
 
     require_once "simplepie/autoloader.php";
     require_once "humantime.php";
         
+    $url = (isset( $_GET['url'] )) ? $_GET['url'] : $default_url;
+        
     $feed = new SimplePie();
     $feed->set_feed_url( $url );
-    $feed->set_cache_duration( 600 );   // Ten minutes
+    $feed->set_cache_duration( 420 );   // Seven minutes
+    
     if( !$feed->init() )
     {
         $title      = "Cannot read $url";
-        $feed_img   = null;
         $items      = null;
+        $image      = null;
     }
     else
     {
         $title      = $feed->get_title();
         $items      = $feed->get_items();
         $copyright  = $feed->get_copyright();
-        $feed_img   = $feed->get_image_url();
+        $image      = $feed->get_image_url();
     }
 ?>
     
@@ -38,9 +43,7 @@
   <body>
     <div id="container">
       <header>
-        <?php if( $feed_img ) : ?>
-          <img src="<?php echo $feed_img; ?>" alt="<?php echo $title; ?>" />
-        <?php endif; ?>
+        <?php if( $image ) { echo "<img src=\"$image\" alt=\"$title\" />\n"; } ?>
         <h1><?php echo $title; ?></h1>
         <?php if( !$items ) { die(); } ?>
         <h2><?php echo $feed->get_description(); ?></h2>
@@ -57,38 +60,21 @@
       $cats     = $item->get_categories();
       $conts    = $item->get_contributors();
       $link     = $item->get_permalink();
-//      $encs     = $item->get_enclosures();
       $enc      = $item->get_enclosure();
     ?>
       <article>
-<?php /*
-      <?php if( $encs ) :
-          foreach( $encs as $enc ) :
-            if( $tns = $enc->get_thumbnails() ) :
-              foreach( $tns as $tn ) :
-                echo $tn . ', ';
-              endforeach;
-              
-            endif;
-          endforeach; ?>
-          </p>
-        <?php endif; ?>
-*/
-?>
-        <?php if( $enc ) :
-          if( $tn = $enc->get_thumbnail() ) :
-            make_link( $link, "<img src=\"$tn\" alt=\"$title\" />" );
-          endif;
+        <?php if( $enc && ($tn = $enc->get_thumbnail()) ) :
+          echo make_link( $link, "<img src=\"$tn\" alt=\"$title\" />" );
         endif; ?>
             
-        <h1><?php make_link( $link, $title); ?></h1>
+        <h1><?php echo make_link( $link, $title); ?></h1>
         <?php if( $desc ) :
           echo '<p>' . summarised( $desc, $link ) . "</p>\n";
         elseif( $content ) :
           echo '<p>' . summarised( $content, $link ) . "</p>\n";
         endif ?>
         
-        <?php if( $author ) : ?>
+        <?php if( !empty( $author ) ) : ?>
           <p>Author: <?php echo $author->get_name(); ?></p>
         <?php endif; ?>
         
@@ -116,7 +102,9 @@
 </html>
 
 <?php
-// Summarise a text potentially, and if so, add a link to a place to read the whole text
+//---------------------------------------------------------------------------
+// Summarise a text potentially, and if so, add a link to a place to read 
+// the whole text.
 
 function summarised( $text, $link )
 {
@@ -125,11 +113,14 @@ function summarised( $text, $link )
     if( strlen( $text ) == strlen( $matches[0] ) )  // No truncation necessary
         return $text;
     
-    return $matches[0] . '&hellip; <a href="' . $link . '" target="_blank">Read More</a>';
+    return $matches[0] . '&hellip; ' . make_link( $link, 'Read More' );
 }
 
 
+//---------------------------------------------------------------------------
+// Make a link that opens in a new Window/Tab
+
 function make_link( $href, $text )
 {
-    echo "<a href=\"$href\" target=\"_blank\">$text</a>";
+    return "<a href=\"$href\" target=\"_blank\">$text</a>";
 }
