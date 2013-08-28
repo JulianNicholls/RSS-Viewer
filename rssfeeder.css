@@ -1,0 +1,62 @@
+/***
+Palette.
+
+Sky Blue: #13ABAB #4AC5C1
+Mid Blue: #2553B6
+Green:    #17D023 #54E254
+Orange:   #FF831C #C4793E #FFA65F
+
+***/
+
+body, p, h1, h2, h3, article, img, div, span, a, a img, header {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+body {
+  font: 10pt/1.2 arial, helvetica, sans-serif;
+  background: #fff;
+  color: #000;
+}
+
+div#container {
+    width: 960px;
+    margin: 0 auto;
+}
+
+header { background: #000; }
+
+header img, article img { float: left; margin-right: 20px; }
+
+h1 { font-size: 200%; text-align: center; color: #fff; }
+h2 { font-size: 150%; text-align: center; color: #fff; }
+h3 { font-size: 120%; margin-right: 20px; text-align: right; color: #fff; }
+
+article {
+    background: #ddd;
+    color: #000;
+    padding: 1ex 1em 3ex;
+    margin-bottom: 1ex;
+}
+
+article h1 { 
+    font-size: 120%; 
+    color: #00f;
+    text-align: left;
+    margin: 0 0 0.5ex 5em;
+}
+
+article p {
+    width: 90%;
+}
+
+article a       { text-decoration: none; color: #00f; }
+article a:hover { background: #fff; }
+
+span.stamp { 
+    font-size: 8pt; 
+    float: right; 
+    color: #777; 
+    margin-bottom: 1ex;
+}
