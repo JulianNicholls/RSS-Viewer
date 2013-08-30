@@ -30,8 +30,6 @@ function human_time( $time, $now = 0 )
         $retval = "a few minutes";
     elseif( $elapsed > (3*60+30) && $elapsed < (7*60) )
         $retval = "five minutes";
-    elseif( $elapsed > (8*60+30) && $elapsed < (12*60+30) )
-        $retval = "ten minutes";
     elseif( $elapsed > (13*60+30) && $elapsed < (17*60+30) )
         $retval = "a quarter of an hour";
     elseif( $elapsed > (28*60+30) && $elapsed < (32*60+30) )
