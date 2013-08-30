@@ -6,6 +6,8 @@
 //    $default_url = "https://www.ruby-lang.org/en/feeds/news.rss";
 //    $default_url = "http://www.nasa.gov/rss/image_of_the_day.rss"
 //    $default_url = "http://www.pcworld.com/index.rss"
+//    $default_url = "http://feeds.feedburner.com/TheDailyPuppy"
+//    $default_url = "http://api.flickr.com/services/feeds/groups_pool.gne?id=1373979@N22&lang=en-us&format=rss_200"
 //
 //---------------------------------------------------------------------------
 
@@ -41,15 +43,16 @@
     <link rel="stylesheet" href="rssfeeder.css">
   </head>
   <body>
+    <header>
+      <?php if( $image ) { echo "<img src=\"$image\" alt=\"$title\" />\n"; } ?>
+      <h1><?php echo $title; ?></h1>
+      <?php if( !$items ) { die(); } ?>
+      <h2><?php echo $feed->get_description(); ?></h2>
+      <h3><?php echo $feed->get_item_quantity(); ?> Items</h3>
+      <?php if( $copyright ) { echo "<p>$copyright</p>\n"; } ?>
+    </header>
+    
     <div id="container">
-      <header>
-        <?php if( $image ) { echo "<img src=\"$image\" alt=\"$title\" />\n"; } ?>
-        <h1><?php echo $title; ?></h1>
-        <?php if( !$items ) { die(); } ?>
-        <h2><?php echo $feed->get_description(); ?></h2>
-        <h3><?php echo $feed->get_item_quantity(); ?> Items</h3>
-        <?php if( $copyright ) { echo "<p>$copyright</p>\n"; } ?>
-      </header>
     
 <?php 
     foreach( $items as $item ) : 
@@ -113,7 +116,7 @@ function summarised( $text, $link )
     if( strlen( $text ) == strlen( $matches[0] ) )  // No truncation necessary
         return $text;
     
-    return $matches[0] . '&hellip; ' . make_link( $link, 'Read More' );
+    return rtrim( $matches[0] ) . '&hellip; ' . make_link( $link, 'Read&nbsp;More' );
 }
 
 
