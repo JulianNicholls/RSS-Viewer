@@ -39,21 +39,41 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="RSS Aggregator">
+    <meta name="author" content="Julian Nicholls">
     <title>RSS <?php echo $title; ?></title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this -->
     <link rel="stylesheet" href="rssfeeder.css">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.js"></script>
+      <script src="js/respond.min.js"></script>
+    <![endif]-->
+    
   </head>
   <body>
-    <header>
-      <?php if( $image ) { echo "<img src=\"$image\" alt=\"$title\" />\n"; } ?>
-      <h1><?php echo $title; ?></h1>
-      <?php if( !$items ) { die(); } ?>
-      <h2><?php echo $feed->get_description(); ?></h2>
-      <h3><?php echo $feed->get_item_quantity(); ?> Items</h3>
-      <?php if( $copyright ) { echo "<p>$copyright</p>\n"; } ?>
-    </header>
-    
-    <div id="container">
-    
+    <div class="container">
+      <header class="row">
+        <div class="col-md-2">
+          <?php if( $image ) { echo "<img src=\"$image\" alt=\"$title\" />\n"; } ?>
+        </div>
+        <div class="col-md-9">
+          <h1><?php echo $title; ?></h1>
+          <?php if( !$items ) { die(); } ?>
+          <h2><?php echo $feed->get_description(); ?></h2>
+          <?php if( $copyright ) { echo "<p>$copyright</p>\n"; } ?>
+        </div>
+        <div class="col-md-1">
+          <p><?php echo $feed->get_item_quantity(); ?> Items</p>
+        </div>      
+      </header>
+        
 <?php 
     foreach( $items as $item ) : 
       $title    = $item->get_title();
@@ -65,11 +85,13 @@
       $link     = $item->get_permalink();
       $enc      = $item->get_enclosure();
     ?>
-      <article>
-        <?php if( $enc && ($tn = $enc->get_thumbnail()) ) :
-          echo make_link( $link, "<img src=\"$tn\" alt=\"$title\" />" );
-        endif; ?>
-            
+      <article class="row">
+        <div class="col-md-1">
+          <?php if( $enc && ($tn = $enc->get_thumbnail()) ) :
+            echo make_link( $link, "<img src=\"$tn\" alt=\"$title\" />" );
+          endif; ?>
+        </div>
+        <div class="col-md-9">
         <h1><?php echo make_link( $link, $title); ?></h1>
         <?php if( $desc ) :
           echo '<p>' . summarised( $desc, $link ) . "</p>\n";
@@ -96,11 +118,18 @@
           endforeach; ?>
           </p>
         <?php endif; ?>
-
-        <span class="stamp"><?php echo human_time( $item->get_date('U') ); ?></span>
+        </div>
+        <div class="col-md-2">
+          <span class="stamp"><?php echo human_time( $item->get_date('U') ); ?></span>
+        </div>
       </article>
     <?php endforeach; ?>
     </div>      <!-- container -->
+    
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="//code.jquery.com/jquery.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>    
   </body>
 </html>
 
