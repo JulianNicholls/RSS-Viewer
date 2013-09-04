@@ -11,11 +11,36 @@
 //
 //---------------------------------------------------------------------------
 
-    require_once "simplepie/autoloader.php";
+    require_once "../simplepie/autoloader.php";
     require_once "humantime.php";
+    require_once "sites.php";
+
+    $sites = new Sites();  // open a link to the Mongo DB for a list of possible URLs to present.
+
+// See if the form has fed us a new URL to add to the list
+
+    if( isset( $_POST['new-url'] ) )
+    {
+        $nu = $_POST['new-url'];
         
-    $url = (isset( $_GET['url'] )) ? $_GET['url'] : $default_url;
+        if( preg_match( '#//([^/]+)/#', $nu, $matches ))
+            $sites->insert( $matches[1], $nu );
+        else
+            $sites->insert( $nu, $nu );
         
+        $url = $nu;     // Use the new one
+    }
+    elseif( isset( $_GET['url'] ) )     // Passed a URL as a GET variable?
+        $url = $_GET['url'];
+    else
+        $url = $default_url;            // Default to above
+        
+// Load the list of URLs to present
+        
+    $urllist    = $sites->all();
+    
+// Now, we attach to the URL selected.
+    
     $feed = new SimplePie();
     $feed->set_feed_url( $url );
     $feed->set_cache_duration( 420 );   // Seven minutes
@@ -33,8 +58,7 @@
         $copyright  = $feed->get_copyright();
         $image      = $feed->get_image_url();
     }
-?>
-    
+?>  
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -44,11 +68,8 @@
     <meta name="author" content="Julian Nicholls">
     <title>RSS <?php echo $title; ?></title>
 
-    <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom styles for this -->
-    <link rel="stylesheet" href="rssfeeder.css">
+    <link href="css/rssfeeder.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -57,22 +78,25 @@
     <![endif]-->
     
   </head>
+  
   <body>
+    <header class="row">
+      <div class="col-md-2">
+        <?php if( $image ) { echo "<img src=\"$image\" alt=\"$title\" />\n"; } ?>
+      </div>
+      <div class="col-md-9">
+        <h1><?php echo $title; ?></h1>
+        <?php if( !$items ) { die(); } ?>
+        <h2><?php echo summarised( $feed->get_description(), $url ); ?></h2>
+        <?php if( $copyright ) { echo "<p>$copyright</p>\n"; } ?>
+      </div>
+      <div class="col-md-1">
+        <p><?php echo $feed->get_item_quantity(); ?> Items</p>
+        <a class="open-feeds">Choose Feed</a>
+      </div>      
+    </header>
+      
     <div class="container">
-      <header class="row">
-        <div class="col-md-2">
-          <?php if( $image ) { echo "<img src=\"$image\" alt=\"$title\" />\n"; } ?>
-        </div>
-        <div class="col-md-9">
-          <h1><?php echo $title; ?></h1>
-          <?php if( !$items ) { die(); } ?>
-          <h2><?php echo $feed->get_description(); ?></h2>
-          <?php if( $copyright ) { echo "<p>$copyright</p>\n"; } ?>
-        </div>
-        <div class="col-md-1">
-          <p><?php echo $feed->get_item_quantity(); ?> Items</p>
-        </div>      
-      </header>
         
 <?php 
     foreach( $items as $item ) : 
@@ -126,12 +150,30 @@
     <?php endforeach; ?>
     </div>      <!-- container -->
     
+    <div id="feeds">    <!-- Feed Panel -->
+      <a class="close-button">&nbsp;</a>
+      <h1>Feeds</h1>
+      <?php foreach( $urllist as $url ) : 
+        echo "<a class=\"feed-button\" href=\"" . 
+            $_SERVER["PHP_SELF"] . "?url=" . $url["url"] . "\">" .
+            $url['name'] . "</a>\n";
+      endforeach; ?>
+      <a id="add-feed" class="feed-button" href="#">Add a new feed &hellip;</a>
+
+      <form id="add-feed-form" action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
+        <input type="url" name="new-url" size="45">
+        <input type="submit" value="Add">
+      </form>
+    </div>  <!-- feeds -->
+    
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="//code.jquery.com/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>    
+    <script src="js/rssfeeder.js"></script>    
   </body>
 </html>
+
 
 <?php
 //---------------------------------------------------------------------------
@@ -145,7 +187,7 @@ function summarised( $text, $link )
     if( strlen( $text ) == strlen( $matches[0] ) )  // No truncation necessary
         return $text;
     
-    return rtrim( $matches[0] ) . '&hellip; ' . make_link( $link, 'Read&nbsp;More' );
+    return rtrim( $matches[0] ) . ' [&hellip;] ' . make_link( $link, 'Read&nbsp;More' );
 }
 
 
