@@ -62,9 +62,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="RSS Aggregator">
+    <meta name="description" content="ARSS Feeder">
     <meta name="author" content="Julian Nicholls">
-    <title>RSS <?php echo $title; ?></title>
+    <title>ARSS <?php echo $title; ?></title>
 
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/rssfeeder.css" rel="stylesheet">
@@ -157,15 +157,31 @@
             $url['name'] . "</a>\n";
       endforeach; ?>
       <a id="add-feed" class="feed-button" href="#">Add a new feed &hellip;</a>
-      <a id="add-feed" class="feed-button" href="rssfeededit.php">Edit Feeds &hellip;</a>
+      <a class="feed-button" href="rssfeededit.php">Edit Feeds &hellip;</a>
 
-      <form id="add-feed-form" action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
-        <fieldset><legend>New Feed</legend>
-          <label for="new-name">Name:</label>
-          <input type="text" name="new-name" size="45"><br />
-          <label for="new-url">Feed URL:</label>
-          <input type="url" name="new-url" size="45"><br />
-          <input type="submit" value="Add Feed">
+      <form id="add-feed-form" role="form" class="form-horizontal" action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
+        <fieldset> 
+          <legend>New Feed</legend>
+          
+          <div class="form-group">
+            <label for="new-name" class="col-lg-2 control-label">Name</label>
+            <div class="col-lg-9">
+              <input type="text" class="form-control" id="new-name" name="new-name" placeholder="Name" />
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="new-url" class="col-lg-2 control-label">URL</label>
+            <div class="col-lg-9">
+              <input type="url" class="form-control" id="new-url" name="new-url" placeholder="URL" />
+            </div>  
+          </div>
+          
+          <div class="form-group">
+            <div class="col-lg-offset-1 col-lg-11">
+              <button type="submit" class="btn bth-default">Add Feed</button>
+            </div>
+          </div>
         </fieldset>
       </form>
     </div>  <!-- feeds -->

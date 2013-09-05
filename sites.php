@@ -1,8 +1,15 @@
 <?php
+//---------------------------------------------------------------------------
+// Class to attach to MongoDB
+//  Database:   feeds
+//  Collection: sites
+//---------------------------------------------------------------------------
 
 class Sites
 {
     private $sites;
+
+    // Attach to MongoDB and select sites from feeds.
     
     public function __construct()
     {
@@ -12,23 +19,31 @@ class Sites
     }
 
 
+    // Insert a new feed
+    
     public function insert( $name, $url )
     {
         return $this->sites->insert( array( 'name' => $name, 'url' => $url ) );        
     }
 
 
+    // Remove a feed by its ID.
+    
     public function remove_by_id( $name )
     {
         return $this->sites->remove( array( '_id' => new MongoId( $name ) ) );        
     }
 
     
+    // Remove a feed by its name.
+    
     public function remove_by_name( $name )
     {
         return $this->sites->remove( array( 'name' => $name ) );        
     }
 
+    
+    // Return all the feed sites
     
     public function all()
     {
@@ -42,6 +57,8 @@ class Sites
     }
     
     
+    // Return the data for a feed by its ID.
+    
     public function find_by_id( $id )
     {
         $cur = $this->sites->findOne( array( '_id' => new MongoId( $id ) ) );
@@ -52,6 +69,8 @@ class Sites
         return FALSE;
     }
     
+    
+    // Return the data for a feed by its name.
     
     public function find_by_name( $name )
     {
