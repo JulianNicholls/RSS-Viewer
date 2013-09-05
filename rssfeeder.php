@@ -85,7 +85,7 @@
       <div class="col-md-9">
         <h1><?php echo $title; ?></h1>
         <?php if( !$items ) { die(); } ?>
-        <h2><?php echo summarised( $feed->get_description(), $url ); ?></h2>
+        <h2><?php echo summarised( strip_tags( $feed->get_description() ), $url ); ?></h2>
         <?php if( $copyright ) { echo "<p>$copyright</p>\n"; } ?>
       </div>
       <div class="col-md-1">

@@ -13,23 +13,9 @@ header { background: #13ABAB; padding: 2em; }
 h1 { font-size: 150%; text-align: center; color: #fff; }
 h2 { font-size: 120%; text-align: center; color: #fff; }
 
-a.open-feeds {
-    text-decoration: none;
-    display: block;
-    margin-right: 0.5em;
-    cursor: pointer;
-    padding: 1ex 1em;
-    background: #FF831C;
-    color: white;
-}
 
-a.open-feeds:hover {
-    text-decoration: none;
-    background: #C4793E;
-    cursor: pointer;
-}
-
-form {
+form#update-feed {
+    display: none;
     padding: 10px;
     border: 1px solid #e5e5e5;
     border-radius: 10px;

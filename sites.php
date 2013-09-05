@@ -29,9 +29,9 @@ class Sites
 
     // Remove a feed by its ID.
     
-    public function remove_by_id( $name )
+    public function remove_by_id( $id )
     {
-        return $this->sites->remove( array( '_id' => new MongoId( $name ) ) );        
+        return $this->sites->remove( array( '_id' => new MongoId( $id ) ) );        
     }
 
     
@@ -40,6 +40,13 @@ class Sites
     public function remove_by_name( $name )
     {
         return $this->sites->remove( array( 'name' => $name ) );        
+    }
+    
+    // Update a feed by its ID.
+    
+    public function update( $id, $data )
+    {
+        return $this->sites->update( array( '_id' => new MongoId( $id ) ), $data );        
     }
 
     

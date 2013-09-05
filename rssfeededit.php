@@ -7,10 +7,17 @@
 
     if( isset( $_GET['delete'] ) )
         $sites->remove_by_id( new MongoId( $_GET['delete'] ) );
-        
+    elseif( isset( $_POST['updated-id'] ) )
+    {
+        $sites->update( $_POST['updated-id'], 
+            array( 'name' => $_POST['updated-name'], 'url' => $_POST['updated-url'] ) 
+        );
+    }
+    
 // Load the list of URLs to present
         
     $urllist    = $sites->all();
+    $self       = $_SERVER['PHP_SELF'];
 
 ?>
 <html lang="en">
@@ -44,41 +51,51 @@
           <tr><th>&nbsp;</th><th>Name</th><th>URL</th></tr>
         </thead>
         <tbody>
-          <?php foreach( $urllist as $cur ) : ?>
+          <?php foreach( $urllist as $cur ) : 
+            $id   = $cur['_id']; 
+            $name = $cur['name'];
+            $url  = $cur['url']; ?>
           <tr>
-            <td><a href="<?php echo $_SERVER['PHP_SELF']; ?>?delete=<?php echo $cur['_id']; ?>">
-              <img src="images/deletebutton.png" alt="Delete" />
-            </a></td>
-            <td><?php echo $cur['name']; ?></td>
-            <td><?php echo $cur['url']; ?></td>
+            <td>
+              <a href="<?php echo "$self?delete=$id;" ?>">
+                <img src="images/deletebutton.png" alt="Delete" />
+              </a>
+              <a class="edit" href="#" data-name="<?php echo $name; ?>" data-id="<?php echo $id; ?>" data-url="<?php echo $url; ?>">
+                <img src="images/editbutton.png" alt="Edit" />
+              </a>            
+              <a href="<?php echo "rssfeeder.php?url=$url;" ?>">
+                <img src="images/go.png" alt="Delete" />
+              </a>
+            </td>
+            <td><?php echo $name; ?></td>
+            <td><?php echo $url; ?></td>
           </tr>
           <?php endforeach; ?>
         </tbody>
       </table>
       
-      <a class="open-feeds" href="rssfeeder.php">Open Feeds</a>
-      
-      <form role="form" class="form-horizontal" action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
+      <form id="update-feed" role="form" class="form-horizontal" action="<?php echo $self; ?>" method="post">
         <fieldset> 
-          <legend>New Feed</legend>
-          
+          <legend>Update Feed</legend>
+
+          <input type="hidden" id="updated-id" name="updated-id">
           <div class="form-group">
-            <label for="new-name" class="col-lg-1 control-label">Name</label>
+            <label for="updated-name" class="col-lg-1 control-label">Name</label>
             <div class="col-lg-8">
-              <input type="text" class="form-control" id="new-name" name="new-name" placeholder="Name" />
+              <input type="text" class="form-control" id="updated-name" name="updated-name" placeholder="Name" />
             </div>
           </div>
           
           <div class="form-group">
-            <label for="new-url" class="col-lg-1 control-label">URL</label>
+            <label for="updated-url" class="col-lg-1 control-label">URL</label>
             <div class="col-lg-8">
-              <input type="url" class="form-control" id="new-url" name="new-url" placeholder="URL" />
+              <input type="url" class="form-control" id="updated-url" name="updated-url" placeholder="URL" />
             </div>  
           </div>
           
           <div class="form-group">
             <div class="col-lg-offset-1 col-lg-11">
-              <button type="submit" class="btn bth-default">Add Feed</button>
+              <button type="submit" class="btn btn-default">Update Feed</button>
             </div>
           </div>
         </fieldset>
