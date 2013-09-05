@@ -21,12 +21,10 @@
 
     if( isset( $_POST['new-url'] ) )
     {
-        $nu = $_POST['new-url'];
+        $name   = $_POST['new-name'];
+        $nu     = $_POST['new-url'];
         
-        if( preg_match( '#//([^/]+)/#', $nu, $matches ))
-            $sites->insert( $matches[1], $nu );
-        else
-            $sites->insert( $nu, $nu );
+        $sites->insert( $name, $nu );
         
         $url = $nu;     // Use the new one
     }
@@ -159,10 +157,16 @@
             $url['name'] . "</a>\n";
       endforeach; ?>
       <a id="add-feed" class="feed-button" href="#">Add a new feed &hellip;</a>
+      <a id="add-feed" class="feed-button" href="rssfeededit.php">Edit Feeds &hellip;</a>
 
       <form id="add-feed-form" action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
-        <input type="url" name="new-url" size="45">
-        <input type="submit" value="Add">
+        <fieldset><legend>New Feed</legend>
+          <label for="new-name">Name:</label>
+          <input type="text" name="new-name" size="45"><br />
+          <label for="new-url">Feed URL:</label>
+          <input type="url" name="new-url" size="45"><br />
+          <input type="submit" value="Add Feed">
+        </fieldset>
       </form>
     </div>  <!-- feeds -->
     
@@ -182,11 +186,15 @@
 
 function summarised( $text, $link )
 {
-    preg_match('/^\s*+(?:\S++\s*+){1,75}/', $text, $matches);
-    
-    if( strlen( $text ) == strlen( $matches[0] ) )  // No truncation necessary
+// If there's no match (no text, probably) or the text has less than 75 words
+// then just return the text unmodified.
+
+    if( preg_match('/^\s*+(?:\S++\s*+){1,75}/', $text, $matches) != 1 || 
+        strlen( $text ) == strlen( $matches[0] ) )
         return $text;
-    
+        
+// Otherwise, return the first 75 words and a link
+
     return rtrim( $matches[0] ) . ' [&hellip;] ' . make_link( $link, 'Read&nbsp;More' );
 }
 

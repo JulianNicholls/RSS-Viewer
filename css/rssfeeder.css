@@ -82,8 +82,8 @@ div#feeds {
     position: fixed;
     top: 200px;
     left: 300px;
-    width: 400px;
-    padding: 0 0 1ex 0;
+    width: 450px;
+    padding: 0 10px 1ex 10px;
     background: #13ABAB;
     border: 2px solid white;
     border-radius: 20px;
@@ -120,11 +120,13 @@ a.feed-button:hover {
 
 form#add-feed-form {
     display: none;
-    position: absolute;
+}
+
+form#add-feed-form label {
+    width: 6em;
+    float: left;
 }
 
 form#add-feed-form input {
-    display: block;
-    float: left;
-    margin-right: 1em;
+    margin-bottom: 5px;
 }

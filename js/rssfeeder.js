@@ -18,11 +18,7 @@ $(function() {
     // Add Feed button clicked: Show an input field.
     
     $(document).on( 'click', "a#add-feed", function() {
-        var $faff   = $("form#add-feed-form"),
-            $aaf    = $("a#add-feed"),
-            pos     = $aaf.position();
-            
-         $faff.css( { top: pos.top+8, left: 10 } ).show();
+         $("form#add-feed-form").slideDown( 600 );
     });
     
 });
