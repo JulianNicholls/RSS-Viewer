@@ -42,9 +42,9 @@
   </head>
   
   <body>
-    <header>
+    <div class="jumbotron">
       <h1>ARSS Editor</h1>
-    </header>
+    </div>
     
     <div class="container">
       <h2>Feeds</h2>
