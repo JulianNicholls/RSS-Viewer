@@ -17,6 +17,8 @@ function human_time( $time, $now = 0 )
         $now = time();
         
     $midnight = mktime( 0, 0, 0, date( 'm' ), date( 'd' ), date( 'Y' ) );
+    $midday   = mktime( 12, 0, 0, date( 'm' ), date( 'd' ), date( 'Y' ) );
+    
     $elapsed  = $now - $time;
     $hours    = ($elapsed / 3600.0 ) + 0.45;
     $days     = ($midnight - $time) / 86400.0;
@@ -26,7 +28,7 @@ function human_time( $time, $now = 0 )
         
     if( $elapsed < 150 )                # Then Minutes
         $retval = "a couple of minutes";
-    elseif( $elapsed < 270 )
+    elseif( $elapsed < 210 ) # 3:30
         $retval = "a few minutes";
     elseif( $elapsed > (3*60+30) && $elapsed < (7*60) )
         $retval = "five minutes";
@@ -39,10 +41,14 @@ function human_time( $time, $now = 0 )
     elseif( $elapsed > (58*60+30) && $elapsed < (65*60) )
         $retval = "an hour";
     elseif( $days < 0 )                 # Still today
+    {
         if( $elapsed < (71*60) )
             $retval = sprintf( "%.0f minutes", ($elapsed / 60.0) );
+        elseif( $time < $midday )
+            return "this morning";
         else
             $retval = sprintf( "%.0f hours", $hours );   # Followed by Hours
+    }
     elseif( $days < 1 )
         return "yesterday";             # Then Days
     elseif( $days >= 1 && $days <= 2.5 )
