@@ -119,11 +119,3 @@ a.feed-button:hover {
     text-decoration: none;
     background: #C4793E;
 }
-
-form#add-feed-form {
-    display: none;
-    background: white;
-    padding: 10px;
-    border: 1px solid #e5e5e5;
-    border-radius: 10px;
-}

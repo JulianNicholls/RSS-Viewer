@@ -14,10 +14,4 @@ $(function() {
     $(document).on( 'click', "a.close-button", function() {
         $("div#feeds").fadeOut( 600 );
 	});
-    
-    // Add Feed button clicked: Show the 'Add Feed' form.
-    
-    $(document).on( 'click', "a#add-feed", function() {
-         $("form#add-feed-form").slideDown( 600 );
-    });
 });

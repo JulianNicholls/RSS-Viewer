@@ -180,34 +180,7 @@
             "$self?url=" . $url["url"] . "\">" .
             $url['name'] . "</a>\n";
       endforeach; ?>
-      <a id="add-feed" class="feed-button" href="#">Add a new feed &hellip;</a>
       <a class="feed-button" href="rssfeededit.php">Edit Feeds &hellip;</a>
-
-      <form id="add-feed-form" role="form" class="form-horizontal" action="<?php echo $self; ?>" method="post">
-        <fieldset> 
-          <legend>New Feed</legend>
-          
-          <div class="form-group">
-            <label for="new-name" class="col-lg-2 control-label">Name</label>
-            <div class="col-lg-9">
-              <input type="text" class="form-control" id="new-name" name="new-name" placeholder="Name" />
-            </div>
-          </div>
-          
-          <div class="form-group">
-            <label for="new-url" class="col-lg-2 control-label">URL</label>
-            <div class="col-lg-9">
-              <input type="url" class="form-control" id="new-url" name="new-url" placeholder="URL" />
-            </div>  
-          </div>
-          
-          <div class="form-group">
-            <div class="col-lg-offset-1 col-lg-11">
-              <button type="submit" class="btn bth-default">Add Feed</button>
-            </div>
-          </div>
-        </fieldset>
-      </form>
     </div>  <!-- feeds -->
     
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
