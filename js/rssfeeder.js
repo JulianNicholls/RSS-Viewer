@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------------
-// JavaScript for the RSSFeeder
+// JavaScript for the ARSS Viewer
 
 $(function() {
 

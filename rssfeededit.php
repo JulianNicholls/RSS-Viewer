@@ -5,8 +5,10 @@
 
 // Any updates or deletes to do?
 
-    if( isset( $_GET['delete'] ) )
-        $sites->remove_by_id( new MongoId( $_GET['delete'] ) );
+    if( isset( $_POST['new-url'] ) )
+        $sites->insert( $_POST['new-name'], $_POST['new-url'] );
+    elseif( isset( $_POST['delete'] ) )
+        $sites->remove_by_id( new MongoId( $_POST['delete'] ) );
     elseif( isset( $_POST['updated-id'] ) )
     {
         $sites->update( $_POST['updated-id'], 
@@ -57,15 +59,23 @@
             $url  = $cur['url']; ?>
           <tr>
             <td>
-              <a href="<?php echo "$self?delete=$id;" ?>">
-                <img src="images/deletebutton.png" alt="Delete" />
-              </a>
-              <a class="edit" href="#" data-name="<?php echo $name; ?>" data-id="<?php echo $id; ?>" data-url="<?php echo $url; ?>">
-                <img src="images/editbutton.png" alt="Edit" />
-              </a>            
-              <a href="<?php echo "rssfeeder.php?url=$url;" ?>">
-                <img src="images/go.png" alt="Delete" />
-              </a>
+              <div class="btn-group">
+                <button id="delete" class="btn btn-danger"
+                        data-name="<?php echo $name; ?>" 
+                        data-id="<?php echo $id; ?>">
+                  <span class="glyphicon glyphicon-remove"></span>
+                </button>
+              <button id="edit" class="btn btn-default"
+                      data-name="<?php echo $name; ?>" 
+                      data-id="<?php echo $id; ?>" 
+                      data-url="<?php echo $url; ?>">
+                <span class="glyphicon glyphicon-pencil"></span>
+              </button>
+                <button id="go" class="btn btn-default"
+                        data-url="<?php echo $url; ?>">
+                  <span class="glyphicon glyphicon-link"></span>
+                </button>
+            </div>
             </td>
             <td><?php echo $name; ?></td>
             <td><?php echo $url; ?></td>
@@ -74,7 +84,13 @@
         </tbody>
       </table>
       
-      <form id="update-feed" role="form" class="form-horizontal" action="<?php echo $self; ?>" method="post">
+      <button id="new" class="btn btn-default">
+        <span class="glyphicon glyphicon-plus"></span> Add New Feed
+      </button>
+      
+      <form id="update-feed" role="form" 
+            class="form-horizontal" 
+            action="<?php echo $self; ?>" method="post">
         <fieldset> 
           <legend>Update Feed</legend>
 
@@ -82,20 +98,58 @@
           <div class="form-group">
             <label for="updated-name" class="col-lg-1 control-label">Name</label>
             <div class="col-lg-8">
-              <input type="text" class="form-control" id="updated-name" name="updated-name" placeholder="Name" />
+              <input type="text" class="form-control" 
+                     id="updated-name" name="updated-name" 
+                     placeholder="Name" />
             </div>
           </div>
           
           <div class="form-group">
             <label for="updated-url" class="col-lg-1 control-label">URL</label>
             <div class="col-lg-8">
-              <input type="url" class="form-control" id="updated-url" name="updated-url" placeholder="URL" />
+              <input type="url" class="form-control" 
+                     id="updated-url" name="updated-url" placeholder="URL" />
             </div>  
           </div>
           
           <div class="form-group">
             <div class="col-lg-offset-1 col-lg-11">
-              <button type="submit" class="btn btn-default">Update Feed</button>
+              <button type="submit" class="btn btn-default">
+                <span class="glyphicon glyphicon-ok-sign"></span> Update Feed
+              </button>
+            </div>
+          </div>
+        </fieldset>
+      </form>
+
+      <form id="new-feed" role="form" 
+            class="form-horizontal" 
+            action="<?php echo $self; ?>" method="post">
+        <fieldset> 
+          <legend>Add New Feed</legend>
+
+          <div class="form-group">
+            <label for="new-name" class="col-lg-1 control-label">Name</label>
+            <div class="col-lg-8">
+              <input type="text" class="form-control" 
+                     id="new-name" name="new-name" 
+                     placeholder="Name" />
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="new-url" class="col-lg-1 control-label">URL</label>
+            <div class="col-lg-8">
+              <input type="url" class="form-control" 
+                     id="new-url" name="new-url" placeholder="URL" />
+            </div>  
+          </div>
+          
+          <div class="form-group">
+            <div class="col-lg-offset-1 col-lg-11">
+              <button type="submit" class="btn btn-default">
+                <span class="glyphicon glyphicon-ok-sign"></span> Add Feed
+              </button>
             </div>
           </div>
         </fieldset>

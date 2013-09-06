@@ -15,7 +15,9 @@
     require_once "humantime.php";
     require_once "sites.php";
 
-    $sites = new Sites();  // open a link to the Mongo DB for a list of possible URLs to present.
+    $sites      = new Sites();  // open a link to the Mongo DB for a list of possible URLs to present.
+    $self       = $_SERVER['PHP_SELF'];
+    $aggregated = false;
 
 // See if the form has fed us a new URL to add to the list
 
@@ -30,6 +32,16 @@
     }
     elseif( isset( $_GET['url'] ) )     // Passed a URL as a GET variable?
         $url = $_GET['url'];
+    elseif( isset( $_GET['aggregate'] ) ) // BETA: Aggregate some of the above
+    {
+        $aggregated = true;
+        $url        = array(
+            "http://rss1.smashingmagazine.com/feed/",
+            "https://www.ruby-lang.org/en/feeds/news.rss",
+            "http://www.nasa.gov/rss/image_of_the_day.rss",
+            "http://feeds.feedburner.com/TheDailyPuppy"
+        );
+    }
     else
         $url = $default_url;            // Default to above
         
@@ -45,16 +57,26 @@
     
     if( !$feed->init() )
     {
-        $title      = "Cannot read $url";
+        $title      = "Cannot read $url<br />" . $feed->error();
         $items      = null;
         $image      = null;
     }
     else
     {
-        $title      = $feed->get_title();
         $items      = $feed->get_items();
-        $copyright  = $feed->get_copyright();
-        $image      = $feed->get_image_url();
+        
+        if( $aggregated )
+        {
+            $title      = "Aggregated Feed";
+            $copyright  = "";
+            $image      = "";
+        }
+        else
+        {
+            $title      = $feed->get_title();
+            $copyright  = $feed->get_copyright();
+            $image      = $feed->get_image_url();
+        }
     }
 ?>  
 <!DOCTYPE html>
@@ -90,7 +112,9 @@
       </div>
       <div class="col-md-1">
         <p><?php echo $feed->get_item_quantity(); ?> Items</p>
-        <a class="open-feeds">Choose Feed</a>
+        <a class="bright-link open-feeds">Feeds</a>
+        <a class="bright-link" href="<?php echo "$self?url=$url"; ?>">Refresh</a>
+        <a class="bright-link" href="<?php echo "$self?aggregate=1"; ?>">Aggregate!</a>
       </div>      
     </header>
       
@@ -153,13 +177,13 @@
       <h1>Feeds</h1>
       <?php foreach( $urllist as $url ) : 
         echo "<a class=\"feed-button\" href=\"" . 
-            $_SERVER["PHP_SELF"] . "?url=" . $url["url"] . "\">" .
+            "$self?url=" . $url["url"] . "\">" .
             $url['name'] . "</a>\n";
       endforeach; ?>
       <a id="add-feed" class="feed-button" href="#">Add a new feed &hellip;</a>
       <a class="feed-button" href="rssfeededit.php">Edit Feeds &hellip;</a>
 
-      <form id="add-feed-form" role="form" class="form-horizontal" action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
+      <form id="add-feed-form" role="form" class="form-horizontal" action="<?php echo $self; ?>" method="post">
         <fieldset> 
           <legend>New Feed</legend>
           

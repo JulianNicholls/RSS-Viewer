@@ -1,23 +1,46 @@
 //---------------------------------------------------------------------------
-// JavaScript for the RSSFeeder Editor
+// JavaScript for the ARSS Editor
 
 $(function() {
 
-    // Edit button clicked: Show a form
-    
-    $(document).on( 'click', "a.edit", function() {
-        var $this   = $(this),
-            $form   = $("form#update-feed"),
-            id      = $this.attr( 'data-id' ),
-            name    = $this.attr( 'data-name' ),
-            url     = $this.attr( 'data-url' );
+    // Delete button clicked, POST the id to delete via a newly-constructed 
+    // form
+
+    $(document).on( 'click', "button#delete", function() {
+        if( confirm( 'Delete ' + this.dataset.name + ' feed?' ) ) {
+            var $form = $('<form action="' + window.location + '" method="post">' +
+              '<input type="hidden" name="delete" value="' + this.dataset.id + '" />' +
+            '</form>' );
             
-        alert( id + '\n' + name + '\n' + url );
-        
-        $form.find( "#updated-id" ).val( id );
-        $form.find( "#updated-name" ).val( name );
-        $form.find( "#updated-url" ).val( url );
+            $('body').append( $form );
+            $form.submit();
+        }
+    });
+    
+    
+    // Edit button clicked: Show the update feed form
+    
+    $(document).on( 'click', "button#edit", function() {
+        var $form   = $("form#update-feed");
+            
+        $form.find( "#updated-id" ).val( this.dataset.id );
+        $form.find( "#updated-name" ).val( this.dataset.name );
+        $form.find( "#updated-url" ).val( this.dataset.url );
         
         $form.slideDown( 600 );
+    });
+    
+    
+    // Go button clicked: Reload ARSS viewer with passed url
+    
+    $(document).on( 'click', "button#go", function() {
+        window.location = 'rssfeeder.php?url=' + this.dataset.url;
+    });
+
+    
+    // Add Feed button pressed: Show the add feed form
+    
+    $(document).on( 'click', "button#new", function() {
+        $("form#new-feed").slideDown( 600 );
     });
 });

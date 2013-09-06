@@ -59,17 +59,18 @@ span.stamp {
 }
 
 
-a.open-feeds {
+a.bright-link {
+    font-size: 9pt;
     text-decoration: none;
     display: block;
-    margin-right: 0.5em;
+    margin: 2px 0.5em 0 0;
     cursor: pointer;
-    padding: 1ex 1em;
+    padding: 0.5ex 0.5em;
     background: #FF831C;
     color: white;
 }
 
-a.open-feeds:hover {
+a.bright-link:hover {
     text-decoration: none;
     background: #C4793E;
     cursor: pointer;
