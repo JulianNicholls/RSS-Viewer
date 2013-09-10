@@ -60,7 +60,17 @@ class Sites
         foreach( $cursor as $cur )
             $urls[] = $cur;
             
+        usort( $urls, array( "Sites", "cmp_sites" ) );
+        
         return $urls;
+    }
+    
+    
+    // Compare two site entries by name
+    
+    static function cmp_sites( $a, $b )
+    {
+        return strcmp( $a['name'], $b['name'] );
     }
     
     
