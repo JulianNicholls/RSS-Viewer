@@ -22,6 +22,7 @@
     $self       = $_SERVER['PHP_SELF'];
 
 ?>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -99,8 +100,7 @@
             <label for="updated-name" class="col-lg-1 control-label">Name</label>
             <div class="col-lg-8">
               <input type="text" class="form-control" 
-                     id="updated-name" name="updated-name" 
-                     placeholder="Name" />
+                     id="updated-name" name="updated-name" placeholder="Name" />
             </div>
           </div>
           
@@ -122,8 +122,7 @@
         </fieldset>
       </form>
 
-      <form id="new-feed" role="form" 
-            class="form-horizontal" 
+      <form id="new-feed" role="form" class="form-horizontal" 
             action="<?php echo $self; ?>" method="post">
         <fieldset> 
           <legend>Add New Feed</legend>
@@ -132,8 +131,7 @@
             <label for="new-name" class="col-lg-1 control-label">Name</label>
             <div class="col-lg-8">
               <input type="text" class="form-control" 
-                     id="new-name" name="new-name" 
-                     placeholder="Name" />
+                     id="new-name" name="new-name" placeholder="Name" />
             </div>
           </div>
           
