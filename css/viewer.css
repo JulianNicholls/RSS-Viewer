@@ -11,7 +11,7 @@ Orange:   #FF831C #C4793E #FFA65F
 
 .container { padding: 10px 15px; }
 
-header { background: #13ABAB; }
+header { background: #13ABAB; padding-bottom: 10px; }
 
 header p { 
     font-size: 90%; 
@@ -76,6 +76,7 @@ a.bright-link:hover {
     cursor: pointer;
 }
 
+
 /*** Feeds panel ***/
 
 div#feeds {
@@ -118,4 +119,8 @@ a.feed-button {
 a.feed-button:hover {
     text-decoration: none;
     background: #C4793E;
+}
+
+a#feed-edit {
+    margin-top: 1.5ex;
 }

@@ -34,7 +34,7 @@ $(function() {
     // Go button clicked: Reload ARSS viewer with passed url
     
     $(document).on( 'click', "button#go", function() {
-        window.location = 'rssfeeder.php?url=' + this.dataset.url;
+        window.location = 'viewer.php?url=' + this.dataset.url;
     });
 
     

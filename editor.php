@@ -31,7 +31,7 @@
     <title>ARSS Editor</title>
 
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/rssfeededit.css" rel="stylesheet">
+    <link href="css/editor.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -161,6 +161,6 @@
     <script src="//code.jquery.com/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>    
-    <script src="js/rssfeededit.js"></script>  
+    <script src="js/editor.js"></script>  
   </body>
 </html>

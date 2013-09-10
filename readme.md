@@ -8,7 +8,7 @@ Also included is an editor, which is linked to from the feeds panel.
 
 ## MongoDB
 
-[MongoDB](http://www.mongodb.org) is used to store more feeds.
+[MongoDB](http://www.mongodb.org) is used to store the available feeds.
 I have it installed as a Windows Service, as that seems the best way to use it.
 
 ## Bootstrap
@@ -20,11 +20,11 @@ is used for most of the styling. As part of that, the editor uses
 ## Human Time
 
 Included is humantime.php that implements a human interpretation of a time 
-in the past, like GitHub does. It starts with 'just now' for up to a minute and 
-a half, through 'this morning', 'yesterday', and 'a week ago', all the way to 
-'n years ago'.
+in the past, like GitHub and some other sites do. 
+It starts with 'just now' for up to a minute and a half, through 'this morning', 
+'yesterday', and 'a week ago', all the way to 'n months ago' and 'n years ago'.
 
 ### Known Problems
 
-Feed entries with pictures bigger than about 160px wide look a bit crap at 
+Feed entries with pictures bigger than about 90px wide look a bit crap at 
 the moment.

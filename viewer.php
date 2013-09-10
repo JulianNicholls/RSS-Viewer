@@ -30,9 +30,9 @@
         
         $url = $nu;     // Use the new one
     }
-    elseif( isset( $_GET['url'] ) )     // Passed a URL as a GET variable?
+    elseif( isset( $_GET['url'] ) )         // Passed a URL as a GET variable?
         $url = $_GET['url'];
-    elseif( isset( $_GET['aggregate'] ) ) // BETA: Aggregate some of the above
+    elseif( isset( $_GET['aggregate'] ) )   // BETA: Aggregate some of the above
     {
         $aggregated = true;
         $url        = array(
@@ -43,7 +43,7 @@
         );
     }
     else
-        $url = $default_url;            // Default to above
+        $url = $default_url;                // Default to above
         
 // Load the list of URLs to present
         
@@ -89,7 +89,7 @@
     <title>ARSS <?php echo $title; ?></title>
 
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/rssfeeder.css" rel="stylesheet">
+    <link href="css/viewer.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -177,17 +177,17 @@
       <h1>Feeds</h1>
       <?php foreach( $urllist as $url ) : 
         echo "<a class=\"feed-button\" href=\"" . 
-            "$self?url=" . $url["url"] . "\">" .
+            "$self?url=" . $url['url'] . "\">" .
             $url['name'] . "</a>\n";
       endforeach; ?>
-      <a class="feed-button" href="rssfeededit.php">Edit Feeds &hellip;</a>
+      <a class="feed-button" id="feed-edit" href="editor.php">Edit Feeds &hellip;</a>
     </div>  <!-- feeds -->
     
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="//code.jquery.com/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>    
-    <script src="js/rssfeeder.js"></script>    
+    <script src="js/viewer.js"></script>    
   </body>
 </html>
 
