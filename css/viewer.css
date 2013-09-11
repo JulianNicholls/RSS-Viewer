@@ -68,6 +68,9 @@ a.bright-link {
     padding: 0.5ex 0.5em;
     background: #FF831C;
     color: white;
+    -webkit-transition: margin 0.5s, background 0.5s;
+    -moz-transition: margin 0.5s, background 0.5s;
+    transition: margin 0.5s, background 0.5s;
 }
 
 a.bright-link:hover {
