@@ -21,9 +21,9 @@ class Sites
 
     // Insert a new feed
     
-    public function insert( $name, $url )
+    public function insert( $data )
     {
-        return $this->sites->insert( array( 'name' => $name, 'url' => $url ) );        
+        return $this->sites->insert( $data );        
     }
 
 
