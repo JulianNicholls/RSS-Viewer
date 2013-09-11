@@ -23,7 +23,7 @@ function human_time( $time, $now = 0 )
     $hours    = ($elapsed / 3600.0 ) + 0.45;
     $days     = ($midnight - $time) / 86400.0;
 
-    if( $elapsed < 60 )                 # Start with a few seconds
+    if( $elapsed < 90 )                 # Start with a few seconds
         return "just now";              # and bail out because no ' ago' needed
         
     if( $elapsed < 150 )                # Then Minutes
@@ -55,14 +55,14 @@ function human_time( $time, $now = 0 )
         $retval = "a couple of days";
     elseif( $days >= 2.6 && $days <= 4.5 )
         $retval = "a few days";
-    elseif( $days >= 5.5 && $days <= 8.5 )
+    elseif( $days > 4.5 && $days <= 8.5 )
         $retval = "a week";
     elseif( $days >= 12.5 && $days <= 15.5 )
         $retval = "a fortnight";
     elseif( $days >= 27.5 && $days <= 33.5 )
         $retval = "a month";
-    elseif( $days <= 41 )
-        $retval = sprintf( "%.0f days", $days );        
+    elseif( $days <= 49 )
+        $retval = sprintf( "%.0f weeks", ($days + 3.4) / 7 );
     elseif( $days > 360 && $days < 370 )
         $retval = "a year";
     elseif( $days > 720 && $days < 740 )
