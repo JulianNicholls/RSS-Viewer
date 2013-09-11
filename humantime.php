@@ -1,7 +1,7 @@
 <?php
 
 //---------------------------------------------------------------------------
-// $retval = a string with a 'human' representation of how long ago a passed 
+// Return a string with a 'human' representation of how long ago a passed 
 // time was.
 //
 // Entry:   $time   Unix Timestamp of time to report on.
@@ -16,8 +16,12 @@ function human_time( $time, $now = 0 )
     if( $now == 0 )     // Now
         $now = time();
         
-    $midnight = mktime( 0, 0, 0, date( 'm' ), date( 'd' ), date( 'Y' ) );
-    $midday   = mktime( 12, 0, 0, date( 'm' ), date( 'd' ), date( 'Y' ) );
+    $d = date( 'd', $now );
+    $m = date( 'm', $now );
+    $y = date( 'Y', $now );
+    
+    $midnight = mktime( 0, 0, 0, $m, $d, $y );
+    $midday   = mktime( 12, 0, 0, $m, $d, $y );
     
     $elapsed  = $now - $time;
     $hours    = ($elapsed / 3600.0 ) + 0.45;
@@ -57,7 +61,7 @@ function human_time( $time, $now = 0 )
         $retval = "a few days";
     elseif( $days > 4.5 && $days <= 8.5 )
         $retval = "a week";
-    elseif( $days >= 12.5 && $days <= 15.5 )
+    elseif( $days >= 10.6 && $days <= 15.5 )
         $retval = "a fortnight";
     elseif( $days >= 27.5 && $days <= 33.5 )
         $retval = "a month";
