@@ -132,12 +132,14 @@
       $enc      = $item->get_enclosure();
     ?>
       <article class="row">
-        <div class="col-md-1">
-          <?php if( $enc && ($tn = $enc->get_thumbnail()) ) :
-            echo make_link( $link, "<img src=\"$tn\" alt=\"$title\" />" );
-          endif; ?>
+      <?php if( $enc && ($tn = $enc->get_thumbnail()) ) : ?>
+        <div class="col-md-2">
+          <?php echo make_link( $link, "<img src=\"$tn\" alt=\"$title\" />" ); ?>
         </div>
-        <div class="col-md-9">
+        <div class="col-md-8">
+      <?php else : ?>
+        <div class="col-md-offset-1 col-md-9">
+      <?php endif; ?>
         <h1><?php echo make_link( $link, $title); ?></h1>
         <?php if( $desc ) :
           echo '<p>' . summarised( $desc, $link ) . "</p>\n";

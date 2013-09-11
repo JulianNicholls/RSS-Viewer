@@ -20,11 +20,11 @@ is used for most of the styling. As part of that, the editor uses
 ## Human Time
 
 Included is humantime.php that implements a human interpretation of a time 
-in the past, like GitHub and some other sites do. 
+in the past, like GitHub, Wordpress and some other sites do. 
 It starts with 'just now' for up to a minute and a half, through 'this morning', 
 'yesterday', and 'a week ago', all the way to 'n months ago' and 'n years ago'.
 
 ### Known Problems
 
 Feed entries with pictures bigger than about 90px wide look a bit crap at 
-the moment.
+the moment. **FIXED**
