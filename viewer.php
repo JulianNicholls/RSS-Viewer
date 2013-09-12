@@ -1,14 +1,9 @@
 <?php
 //---------------------------------------------------------------------------
-//
+// Default URL used if one isn't specified via GET.
+
     $default_url = "http://feeds.bbci.co.uk/news/rss.xml";
-//    $default_url = "http://rss1.smashingmagazine.com/feed/";
-//    $default_url = "https://www.ruby-lang.org/en/feeds/news.rss";
-//    $default_url = "http://www.nasa.gov/rss/image_of_the_day.rss"
-//    $default_url = "http://www.pcworld.com/index.rss"
-//    $default_url = "http://feeds.feedburner.com/TheDailyPuppy"
-//    $default_url = "http://api.flickr.com/services/feeds/groups_pool.gne?id=1373979@N22&lang=en-us&format=rss_200"
-//
+    
 //---------------------------------------------------------------------------
 
     require_once "../simplepie/autoloader.php";
@@ -20,18 +15,7 @@
     $self       = $_SERVER['PHP_SELF'];
     $aggregated = false;
 
-// See if the form has fed us a new URL to add to the list
-
-    if( isset( $_POST['new-url'] ) )
-    {
-        $name   = $_POST['new-name'];
-        $nu     = $_POST['new-url'];
-        
-        $sites->insert( $name, $nu );
-        
-        $url = $nu;     // Use the new one
-    }
-    elseif( isset( $_GET['url'] ) )         // Passed a URL as a GET variable?
+    if( isset( $_GET['url'] ) )         // Passed a URL as a GET variable?
         $url = $_GET['url'];
     elseif( isset( $_GET['aggregate'] ) )   // BETA: Aggregate the selected feeds
     {
@@ -82,7 +66,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="ARSS Feeder">
+    <meta name="description" content="ARSS Viewer">
     <meta name="author" content="Julian Nicholls">
     <title>ARSS <?php echo $title; ?></title>
 
@@ -94,7 +78,6 @@
       <script src="js/html5shiv.js"></script>
       <script src="js/respond.min.js"></script>
     <![endif]-->
-    
   </head>
   
   <body>
@@ -120,6 +103,7 @@
 <?php if( !$items ) { die(); }      // Bail out if there's no items to show ?>   
       
     <div class="container">
+    <section id="items">
         
 <?php 
     foreach( $items as $item ) : 
@@ -152,35 +136,35 @@
           <p>Author: <?php echo $author->get_name(); ?></p>
         <?php endif; ?>
         
-        <?php if( $cats ) : ?>
-          <p>Categories:
-          <?php foreach( $cats as $cat ) :
+        <?php if( $cats ) :
+          echo "<p>Categories: ";
+          foreach( $cats as $cat ) :
             echo $cat->get_label() . ', ';
-          endforeach; ?>
-          </p>
-        <?php endif; ?>
+          endforeach;
+          echo "</p>\n";
+        endif; ?>
         
-        <?php if( $conts ) : ?>
-          <p>Contributors:
-          <?php foreach( $conts as $cont ) :
+        <?php if( $conts ) :
+          echo "<p>Contributors: ";
+          foreach( $conts as $cont ) :
             echo '(' . $cont->get_name() . ', ' . $cont->get_link() . ', ' . $cont->get_email() . '), ';
-          endforeach; ?>
-          </p>
-        <?php endif; ?>
+          endforeach;
+          echo "</p>\n";
+        endif; ?>
         </div>
         <div class="col-md-2">
           <span class="stamp"><?php echo human_time( $item->get_date('U') ); ?></span>
         </div>
       </article>
     <?php endforeach; ?>
+    </section>  <!-- items -->
     </div>      <!-- container -->
     
     <div id="feeds">    <!-- Feed Panel -->
       <a class="close-button">&nbsp;</a>
       <h1>Feeds</h1>
       <?php foreach( $urllist as $url ) : 
-        echo "<a class=\"feed-button\" href=\"" . 
-            "$self?url=" . $url['url'] . "\">" .
+        echo "<a class=\"feed-button\" href=\"$self?url={$url['url']}\">" .
             $url['name'] . "</a>\n";
       endforeach; ?>
       <a class="feed-button" id="feed-edit" href="editor.php">Edit Feeds &hellip;</a>

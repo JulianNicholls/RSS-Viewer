@@ -6,12 +6,19 @@ Mid Blue: #2553B6
 Green:    #17D023 #54E254
 Orange:   #FF831C #C4793E #FFA65F
 
+
+Base:      #84d0d6
+Left:      #8697ed
+Leftest:   #b265e3
+Right:     #86eda2
+Rightest:  #c2e380
+
 ***/
 
 
 .container { padding: 10px 15px; }
 
-header { background: #13ABAB; padding-bottom: 10px; }
+header { background: #84d0d6; padding-bottom: 10px; }
 
 header p { 
     font-size: 90%; 
@@ -27,7 +34,7 @@ h2 { font-size: 120%; text-align: center; color: #fff; }
 
 article {
     margin-top: 0.5ex;
-    background: #2553B6;
+    background: #8697ed;
     color: #fff;
     padding: 10px;
     overflow: hidden;
@@ -35,19 +42,20 @@ article {
 
 article h1 { 
     font-size: 120%; 
-    color: #FF831C;
+    color: #c2e380;
     text-align: left;
     margin: 0 0 0.5ex 5em;
 }
 
 article a, article a:visited {
     text-decoration: none; 
-    color: #FF831C;
+    color: #c2e380;
+    text-shadow: 0px -1px 1px #ddd, 0px 1px 1px #222;
 }
 
 article a:hover { 
     text-decoration: none; 
-    color: #ff831c; 
+    color: #c2e380; 
     text-shadow: 0px -1px 1px #222, 0px 1px 1px #ddd;
 }
 
@@ -55,7 +63,7 @@ span.stamp {
     font-size: 8pt; 
     float: right;
     margin-right: 1em;
-    color: #FFA65F; 
+    color: white; 
 }
 
 
@@ -66,7 +74,7 @@ a.bright-link {
     margin: 2px 0.5em 0 0;
     cursor: pointer;
     padding: 0.5ex 0.5em;
-    background: #FF831C;
+    background: #c2e380;
     color: white;
     -webkit-transition: margin 0.5s, background 0.5s;
     -moz-transition: margin 0.5s, background 0.5s;
@@ -75,7 +83,7 @@ a.bright-link {
 
 a.bright-link:hover {
     text-decoration: none;
-    background: #C4793E;
+    background: #86eda2;
     cursor: pointer;
 }
 
@@ -90,7 +98,7 @@ div#feeds {
     left: 300px;
     width: 450px;
     padding: 0 10px 1ex 10px;
-    background: #13ABAB;
+    background: #84d0d6;
     border: 2px solid white;
     border-radius: 20px;
     box-shadow: 2px 2px 5px rgba( 0, 0, 0, 50%);
@@ -110,7 +118,7 @@ a.close-button {
 a.feed-button {
     width: 350px;
     height: 30px;
-    background: #FF831C;
+    background: #c2e380;
     color: #fff;
     margin: 0.5ex auto;
     line-height: 30px;
@@ -121,7 +129,7 @@ a.feed-button {
 
 a.feed-button:hover {
     text-decoration: none;
-    background: #C4793E;
+    background: #86eda2;
 }
 
 a#feed-edit {
