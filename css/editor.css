@@ -1,12 +1,4 @@
-/***
-Palette.
-
-Sky Blue: #13ABAB #4AC5C1
-Mid Blue: #2553B6
-Green:    #17D023 #54E254
-Orange:   #FF831C #C4793E #FFA65F
-
-***/
+/*** ARSS Editor ***/
 
 form#update-feed,
 form#new-feed {
@@ -16,3 +8,5 @@ form#new-feed {
     border: 1px solid #e5e5e5;
     border-radius: 10px;
 }
+
+td.agg { text-align: center; }

@@ -27,6 +27,9 @@ $(function() {
         $form.find( "#updated-name" ).val( this.dataset.name );
         $form.find( "#updated-url" ).val( this.dataset.url );
         
+        if( this.dataset.agg == 1 )
+            $form.find( "#updated-agg" ).prop( 'checked', true );
+        
         $form.slideDown( 600 );
     });
     

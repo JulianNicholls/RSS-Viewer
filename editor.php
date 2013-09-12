@@ -6,14 +6,22 @@
 // Any updates or deletes to do?
 
     if( isset( $_POST['new-url'] ) )
-        $sites->insert( $_POST['new-name'], $_POST['new-url'] );
+    {
+        $sites->insert( array(
+            'name'      => $_POST['new-name'], 
+            'url'       => $_POST['new-url'], 
+            'aggregate' => isset( $_POST['new-agg'] ) ? 1 : 0 
+        ) );
+    }
     elseif( isset( $_POST['delete'] ) )
         $sites->remove_by_id( new MongoId( $_POST['delete'] ) );
     elseif( isset( $_POST['updated-id'] ) )
     {
-        $sites->update( $_POST['updated-id'], 
-            array( 'name' => $_POST['updated-name'], 'url' => $_POST['updated-url'] ) 
-        );
+        $sites->update( $_POST['updated-id'], array( 
+            'name'      => $_POST['updated-name'], 
+            'url'       => $_POST['updated-url'],
+            'aggregate' => isset( $_POST['updated-agg'] ) ? 1 : 0
+        ) );
     }
     
 // Load the list of URLs to present
@@ -43,21 +51,23 @@
   </head>
   
   <body>
-    <div class="jumbotron">
+    <div class="well well-sm">
       <h1>ARSS Editor</h1>
     </div>
     
     <div class="container">
       <h2>Feeds</h2>
-      <table class="table table-striped table-bordered">
+      <table class="table table-striped table-bordered table-condensed">
         <thead>
-          <tr><th>&nbsp;</th><th>Name</th><th>URL</th></tr>
+          <tr><th>&nbsp;</th><th>Name</th><th>URL</th><th>Aggregate?</th></tr>
         </thead>
         <tbody>
           <?php foreach( $urllist as $cur ) : 
             $id   = $cur['_id']; 
             $name = $cur['name'];
-            $url  = $cur['url']; ?>
+            $url  = $cur['url']; 
+            $agg  = $cur['aggregate'] ? "Yes" : "No"; 
+          ?>
           <tr>
             <td>
               <div class="btn-group">
@@ -66,22 +76,24 @@
                         data-id="<?php echo $id; ?>">
                   <span class="glyphicon glyphicon-remove"></span>
                 </button>
-              <button id="edit" class="btn btn-default"
-                      data-name="<?php echo $name; ?>" 
-                      data-id="<?php echo $id; ?>" 
-                      data-url="<?php echo $url; ?>">
-                <span class="glyphicon glyphicon-pencil"></span>
-              </button>
+                <button id="edit" class="btn btn-default"
+                      data-name="<?php echo $name; ?>"
+                      data-id="<?php echo $id; ?>"
+                      data-url="<?php echo $url; ?>"
+                      data-agg="<?php echo $cur['aggregate']; ?>">
+                  <span class="glyphicon glyphicon-pencil"></span>
+                </button>
                 <button id="go" class="btn btn-default"
                         data-url="<?php echo $url; ?>">
                   <span class="glyphicon glyphicon-link"></span>
                 </button>
             </div>
             </td>
-            <td><?php echo $name; ?></td>
-            <td><?php echo $url; ?></td>
-          </tr>
-          <?php endforeach; ?>
+            <?php 
+              echo "<td>$name</td>\n";
+              echo "<td>$url</td>\n";
+              echo "<td class=\"agg\">$agg</td>\n</tr>\n";
+          endforeach; ?>
         </tbody>
       </table>
       
@@ -103,7 +115,7 @@
                      id="updated-name" name="updated-name" placeholder="Name" />
             </div>
           </div>
-          
+
           <div class="form-group">
             <label for="updated-url" class="col-lg-1 control-label">URL</label>
             <div class="col-lg-8">
@@ -111,7 +123,17 @@
                      id="updated-url" name="updated-url" placeholder="URL" />
             </div>  
           </div>
-          
+
+          <div class="form-group">
+            <div class="col-lg-offset-1 col-lg-11">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" id="updated-agg" name="updated-agg"> Use in Aggregated Feed
+                </label>
+              </div>
+            </div>  
+          </div>
+
           <div class="form-group">
             <div class="col-lg-offset-1 col-lg-11">
               <button type="submit" class="btn btn-default">
@@ -134,7 +156,7 @@
                      id="new-name" name="new-name" placeholder="Name" />
             </div>
           </div>
-          
+
           <div class="form-group">
             <label for="new-url" class="col-lg-1 control-label">URL</label>
             <div class="col-lg-8">
@@ -142,7 +164,17 @@
                      id="new-url" name="new-url" placeholder="URL" />
             </div>  
           </div>
-          
+
+          <div class="form-group">
+            <div class="col-lg-offset-1 col-lg-11">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" id="new-agg" name="new-agg"> Use in Aggregated Feed
+                </label>
+              </div>
+            </div>  
+          </div>
+
           <div class="form-group">
             <div class="col-lg-offset-1 col-lg-11">
               <button type="submit" class="btn btn-default">
