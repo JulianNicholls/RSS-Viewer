@@ -1,7 +1,6 @@
 /*** ARSS Editor ***/
 
-form#update-feed,
-form#new-feed {
+form#feed {
     display: none;
     margin-top: 20px;
     padding: 10px;

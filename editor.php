@@ -5,24 +5,27 @@
 
 // Any updates or deletes to do?
 
-    if( isset( $_POST['new-url'] ) )
+    if( isset( $_POST['feed-url'] ) )
     {
-        $sites->insert( array(
-            'name'      => $_POST['new-name'], 
-            'url'       => $_POST['new-url'], 
-            'aggregate' => isset( $_POST['new-agg'] ) ? 1 : 0 
-        ) );
+        if( $_POST['submit-button'] == 'add' )
+        {
+            $sites->insert( array(
+                'name'      => $_POST['feed-name'], 
+                'url'       => $_POST['feed-url'], 
+                'aggregate' => isset( $_POST['feed-agg'] ) ? 1 : 0 
+            ) );
+        }
+        else
+        {
+            $sites->update( $_POST['feed-id'], array( 
+                'name'      => $_POST['feed-name'], 
+                'url'       => $_POST['feed-url'],
+                'aggregate' => isset( $_POST['feed-agg'] ) ? 1 : 0
+            ) );
+        }
     }
     elseif( isset( $_POST['delete'] ) )
         $sites->remove_by_id( new MongoId( $_POST['delete'] ) );
-    elseif( isset( $_POST['updated-id'] ) )
-    {
-        $sites->update( $_POST['updated-id'], array( 
-            'name'      => $_POST['updated-name'], 
-            'url'       => $_POST['updated-url'],
-            'aggregate' => isset( $_POST['updated-agg'] ) ? 1 : 0
-        ) );
-    }
     
 // Load the list of URLs to present
         
@@ -71,19 +74,19 @@
           <tr>
             <td>
               <div class="btn-group btn-group-sm">
-                <button id="delete" class="btn btn-danger"
+                <button class="delete btn btn-danger"
                         data-name="<?php echo $name; ?>" 
                         data-id="<?php echo $id; ?>">
                   <span class="glyphicon glyphicon-remove"></span>
                 </button>
-                <button id="edit" class="btn btn-primary"
+                <button class="edit btn btn-primary"
                       data-name="<?php echo $name; ?>"
                       data-id="<?php echo $id; ?>"
                       data-url="<?php echo $url; ?>"
                       data-agg="<?php echo $cur['aggregate']; ?>">
                   <span class="glyphicon glyphicon-pencil"></span>
                 </button>
-                <button id="go" class="btn btn-info"
+                <button class="go btn btn-info"
                         data-url="<?php echo $url; ?>">
                   <span class="glyphicon glyphicon-link"></span>
                 </button>
@@ -101,19 +104,18 @@
         <span class="glyphicon glyphicon-plus"></span> Add New Feed
       </button>
       
-      <form id="update-feed" role="form" 
-            class="form-horizontal" 
+      <form id="feed" role="form" class="form-horizontal" 
             action="<?php echo $self; ?>" method="post">
         <fieldset> 
           <legend>Update Feed</legend>
 
-          <input type="hidden" id="updated-id" name="updated-id">
+          <input type="hidden" id="feed-id" name="feed-id">
           
           <div class="form-group">
             <label for="updated-name" class="col-lg-1 control-label">Name</label>
             <div class="col-lg-8">
               <input type="text" class="form-control" 
-                     id="updated-name" name="updated-name" placeholder="Name" />
+                     id="feed-name" name="feed-name" placeholder="Name" />
             </div>
           </div>
 
@@ -121,7 +123,7 @@
             <label for="updated-url" class="col-lg-1 control-label">URL</label>
             <div class="col-lg-8">
               <input type="url" class="form-control" 
-                     id="updated-url" name="updated-url" placeholder="URL" />
+                     id="feed-url" name="feed-url" placeholder="URL" />
             </div>  
           </div>
 
@@ -129,7 +131,7 @@
             <div class="col-lg-offset-1 col-lg-11">
               <div class="checkbox">
                 <label>
-                  <input type="checkbox" id="updated-agg" name="updated-agg"> Use in Aggregated Feed
+                  <input type="checkbox" id="feed-agg" name="feed-agg"> Use in Aggregated Feed
                 </label>
               </div>
             </div>  
@@ -137,7 +139,7 @@
 
           <div class="form-group">
             <div class="col-lg-offset-1 col-lg-11">
-              <button type="submit" id="submit-button" class="btn btn-default">
+              <button type="submit" name="submit-button" id="submit-button" class="btn btn-primary">
                 <span class="glyphicon glyphicon-ok-sign"></span> Update Feed
               </button>
             </div>
@@ -145,51 +147,10 @@
         </fieldset>
       </form>
 
-      <form id="new-feed" role="form" class="form-horizontal" 
-            action="<?php echo $self; ?>" method="post">
-        <fieldset> 
-          <legend>Add New Feed</legend>
-
-          <div class="form-group">
-            <label for="new-name" class="col-lg-1 control-label">Name</label>
-            <div class="col-lg-8">
-              <input type="text" class="form-control" 
-                     id="new-name" name="new-name" placeholder="Name" />
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="new-url" class="col-lg-1 control-label">URL</label>
-            <div class="col-lg-8">
-              <input type="url" class="form-control" 
-                     id="new-url" name="new-url" placeholder="URL" />
-            </div>  
-          </div>
-
-          <div class="form-group">
-            <div class="col-lg-offset-1 col-lg-11">
-              <div class="checkbox">
-                <label>
-                  <input type="checkbox" id="new-agg" name="new-agg"> Use in Aggregated Feed
-                </label>
-              </div>
-            </div>  
-          </div>
-
-          <div class="form-group">
-            <div class="col-lg-offset-1 col-lg-11">
-              <button type="submit" class="btn btn-default">
-                <span class="glyphicon glyphicon-ok-sign"></span> Add Feed
-              </button>
-            </div>
-          </div>
-        </fieldset>
-      </form>
-      
     </div>      <!-- container -->
         
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="//code.jquery.com/jquery.js"></script>
+    <script src="http://code.jquery.com/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>    
     <script src="js/editor.js"></script>  

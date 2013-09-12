@@ -6,7 +6,7 @@ $(function() {
     // Delete button clicked, POST the id to delete via a newly-constructed 
     // form
 
-    $(document).on( 'click', "button#delete", function() {
+    $(document).on( 'click', "button.delete", function() {
         if( confirm( 'Delete ' + this.dataset.name + ' feed?' ) ) {
             var $form = $('<form action="' + window.location + '" method="post">' +
               '<input type="hidden" name="delete" value="' + this.dataset.id + '" />' +
@@ -21,16 +21,19 @@ $(function() {
     // Edit button clicked: Show the update feed form with the fields filled
     // in based on the item clicked on.
     
-    $(document).on( 'click', "button#edit", function() {
-        var $form   = $("form#update-feed");
-            
-        $form.find( "#updated-id" ).val( this.dataset.id );
-        $form.find( "#updated-name" ).val( this.dataset.name );
-        $form.find( "#updated-url" ).val( this.dataset.url );
+    $(document).on( 'click', "button.edit", function() {
+        var $form = $( "form#feed" );
+
+        $form.find( "#feed-id" ).val( this.dataset.id );
+        $form.find( "#feed-name" ).val( this.dataset.name );
+        $form.find( "#feed-url" ).val( this.dataset.url );
         
-        document.getElementById( 'updated-agg' ).checked = (this.dataset.agg != 0);
+        document.getElementById( 'feed-agg' ).checked = (this.dataset.agg != 0);
         
-        $form.find( "#submit-button" ).text( "Oopdeet it!" );
+        $form.find( "legend" ).text( "Update Feed" );
+        $form.find( "#submit-button" )
+            .html( '<span class="glyphicon glyphicon-ok-sign"></span> Update Feed' )
+            .val( 'update' );
         
         $form.slideDown( 600 );
     });
@@ -38,7 +41,7 @@ $(function() {
     
     // Go button clicked: Reload ARSS viewer with passed url
     
-    $(document).on( 'click', "button#go", function() {
+    $(document).on( 'click', "button.go", function() {
         window.location = 'viewer.php?url=' + this.dataset.url;
     });
 
@@ -46,6 +49,14 @@ $(function() {
     // Add Feed button pressed: Show the add feed form
     
     $(document).on( 'click', "button#new", function() {
-        $("form#new-feed").slideDown( 600 );
+        var $form = $( "form#feed" );
+
+        $form.find( "legend" ).text( "Add Feed" );
+        $form.find( "#submit-button" )
+            .html( '<span class="glyphicon glyphicon-ok-sign"></span> Add New Feed' )
+            .val( 'add' );
+
+        $(this).slideUp( 600 );
+        $form.slideDown( 600 );
     });
 });
