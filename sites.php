@@ -9,7 +9,7 @@ class Sites
 {
     private $sites;
 
-    // Attach to MongoDB and select sites from feeds.
+    // Attach to MongoDB and select sites collection from feeds DB.
     
     public function __construct()
     {
@@ -42,6 +42,7 @@ class Sites
         return $this->sites->remove( array( 'name' => $name ) );        
     }
     
+    
     // Update a feed by its ID.
     
     public function update( $id, $data )
@@ -50,7 +51,7 @@ class Sites
     }
 
     
-    // Return all the feed sites
+    // Return all the feed sites, sorted by name
     
     public function all()
     {
@@ -80,10 +81,7 @@ class Sites
     {
         $cur = $this->sites->findOne( array( '_id' => new MongoId( $id ) ) );
         
-        if( $cur )
-            return $cur;
-            
-        return FALSE;
+        return $cur ? $cur : FALSE;
     }
     
     
@@ -93,10 +91,7 @@ class Sites
     {
         $cur = $this->sites->findOne( array( 'name' => $name ) );
         
-        if( $cur )
-            return $cur;
-            
-        return FALSE;
+        return $cur ? $cur : FALSE;
     }
     
 }
