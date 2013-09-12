@@ -37,11 +37,11 @@ function human_time( $time, $now = 0 )
     elseif( $elapsed > (3*60+30) && $elapsed < (7*60) )
         $retval = "five minutes";
     elseif( $elapsed > (13*60+30) && $elapsed < (17*60+30) )
-        $retval = "a quarter of an hour";
+        $retval = "1/4 of an hour";
     elseif( $elapsed > (28*60+30) && $elapsed < (32*60+30) )
         $retval = "half an hour";
     elseif( $elapsed > (43*60+30) && $elapsed < (47*60+30) )
-        $retval = "three quarters of an hour";
+        $retval = "3/4 of an hour";
     elseif( $elapsed > (58*60+30) && $elapsed < (65*60) )
         $retval = "an hour";
     elseif( $days < 0 )                 # Still today
