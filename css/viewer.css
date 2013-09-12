@@ -93,7 +93,7 @@ div#feeds {
     background: #13ABAB;
     border: 2px solid white;
     border-radius: 20px;
-    box-shadow: 1px 1px 5px 5px rgba( 0, 0, 0, 50%);
+    box-shadow: 2px 2px 5px rgba( 0, 0, 0, 50%);
 }
 
 a.close-button {

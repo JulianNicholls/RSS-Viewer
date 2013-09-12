@@ -15,7 +15,8 @@
     require_once "humantime.php";
     require_once "sites.php";
 
-    $sites      = new Sites();  // open a link to the Mongo DB for a list of possible URLs to present.
+    $sites      = new Sites();      // Open a link to the Mongo DB 
+    $urllist    = $sites->all();    // Collect the list of URLs to present.
     $self       = $_SERVER['PHP_SELF'];
     $aggregated = false;
 
@@ -32,24 +33,21 @@
     }
     elseif( isset( $_GET['url'] ) )         // Passed a URL as a GET variable?
         $url = $_GET['url'];
-    elseif( isset( $_GET['aggregate'] ) )   // BETA: Aggregate some of the above
+    elseif( isset( $_GET['aggregate'] ) )   // BETA: Aggregate the selected feeds
     {
         $aggregated = true;
-        $url        = array(
-            "http://rss1.smashingmagazine.com/feed/",
-            "https://www.ruby-lang.org/en/feeds/news.rss",
-            "http://www.nasa.gov/rss/image_of_the_day.rss",
-            "http://feeds.feedburner.com/TheDailyPuppy"
-        );
+        $url        = array();
+        
+        foreach( $urllist as $cur )
+        {
+            if( $cur['aggregate'] )
+                $url[] = $cur['url'];
+        }
     }
     else
-        $url = $default_url;                // Default to above
+        $url = $default_url;                // Default URL
         
-// Load the list of URLs to present
-        
-    $urllist    = $sites->all();
-    
-// Now, we attach to the URL selected.
+// Now, we attach to the URL(s) selected.
     
     $feed = new SimplePie();
     $feed->set_feed_url( $url );
@@ -104,19 +102,22 @@
       <div class="col-md-2">
         <?php if( $image ) { echo "<img src=\"$image\" alt=\"$title\" />\n"; } ?>
       </div>
-      <div class="col-md-9">
+      <div class="col-md-8">
         <h1><?php echo $title; ?></h1>
-        <?php if( !$items ) { die(); } ?>
-        <h2><?php echo summarised( strip_tags( $feed->get_description() ), $url ); ?></h2>
-        <?php if( $copyright ) { echo "<p>$copyright</p>\n"; } ?>
+        <?php if( $items ) :
+          echo '<h2>' . summarised( strip_tags( $feed->get_description() ), $url ) . "</h2>\n";
+          if( $copyright ) { echo "<p>$copyright</p>\n"; }
+        endif; ?>
       </div>
-      <div class="col-md-1">
-        <p><?php echo $feed->get_item_quantity(); ?> Items</p>
-        <a class="bright-link open-feeds">Feeds</a>
-        <a class="bright-link" href="<?php echo "$self?url=$url"; ?>">Refresh</a>
-        <a class="bright-link" href="<?php echo "$self?aggregate=1"; ?>">Aggregate!</a>
+      <div class="col-md-2">
+        <p><span class="badge"><?php echo $feed->get_item_quantity(); ?></span> Items</p>
+        <a class="bright-link open-feeds"><span class="glyphicon glyphicon-align-justify"></span> Feeds</a>
+        <a class="bright-link" href="<?php echo "$self?url=$url"; ?>"><span class="glyphicon glyphicon-refresh"></span> Refresh</a>
+        <a class="bright-link" href="<?php echo "$self?aggregate=1"; ?>"><span class="glyphicon glyphicon-compressed"></span> Aggregate</a>
       </div>      
     </header>
+        
+<?php if( !$items ) { die(); }      // Bail out if there's no items to show ?>   
       
     <div class="container">
         
