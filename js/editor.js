@@ -18,7 +18,8 @@ $(function() {
     });
     
     
-    // Edit button clicked: Show the update feed form
+    // Edit button clicked: Show the update feed form with the fields filled
+    // in based on the item clicked on.
     
     $(document).on( 'click', "button#edit", function() {
         var $form   = $("form#update-feed");
@@ -27,8 +28,9 @@ $(function() {
         $form.find( "#updated-name" ).val( this.dataset.name );
         $form.find( "#updated-url" ).val( this.dataset.url );
         
-        if( this.dataset.agg == 1 )
-            $form.find( "#updated-agg" ).prop( 'checked', true );
+        document.getElementById( 'updated-agg' ).checked = (this.dataset.agg != 0);
+        
+        $form.find( "#submit-button" ).text( "Oopdeet it!" );
         
         $form.slideDown( 600 );
     });

@@ -70,20 +70,20 @@
           ?>
           <tr>
             <td>
-              <div class="btn-group">
+              <div class="btn-group btn-group-sm">
                 <button id="delete" class="btn btn-danger"
                         data-name="<?php echo $name; ?>" 
                         data-id="<?php echo $id; ?>">
                   <span class="glyphicon glyphicon-remove"></span>
                 </button>
-                <button id="edit" class="btn btn-default"
+                <button id="edit" class="btn btn-primary"
                       data-name="<?php echo $name; ?>"
                       data-id="<?php echo $id; ?>"
                       data-url="<?php echo $url; ?>"
                       data-agg="<?php echo $cur['aggregate']; ?>">
                   <span class="glyphicon glyphicon-pencil"></span>
                 </button>
-                <button id="go" class="btn btn-default"
+                <button id="go" class="btn btn-info"
                         data-url="<?php echo $url; ?>">
                   <span class="glyphicon glyphicon-link"></span>
                 </button>
@@ -108,6 +108,7 @@
           <legend>Update Feed</legend>
 
           <input type="hidden" id="updated-id" name="updated-id">
+          
           <div class="form-group">
             <label for="updated-name" class="col-lg-1 control-label">Name</label>
             <div class="col-lg-8">
@@ -136,7 +137,7 @@
 
           <div class="form-group">
             <div class="col-lg-offset-1 col-lg-11">
-              <button type="submit" class="btn btn-default">
+              <button type="submit" id="submit-button" class="btn btn-default">
                 <span class="glyphicon glyphicon-ok-sign"></span> Update Feed
               </button>
             </div>
