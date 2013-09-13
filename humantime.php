@@ -27,12 +27,12 @@ function human_time( $time, $now = 0 )
     $hours    = ($elapsed / 3600.0 ) + 0.45;
     $days     = ($midnight - $time) / 86400.0;
 
-    if( $elapsed < 90 )                 # Start with a few seconds
-        return "just now";              # and bail out because no ' ago' needed
+    if( $elapsed <= 90 )                 # Start with a few seconds
+        return "just now";               # and bail out because no ' ago' needed
         
-    if( $elapsed < 150 )                # Then Minutes
+    if( $elapsed <= 150 )                # Then Minutes
         $retval = "a couple of minutes";
-    elseif( $elapsed < 210 ) # 3:30
+    elseif( $elapsed <= 210 ) # 3:30
         $retval = "a few minutes";
     elseif( $elapsed > (3*60+30) && $elapsed < (7*60) )
         $retval = "five minutes";
