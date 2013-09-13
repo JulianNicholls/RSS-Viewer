@@ -1,12 +1,6 @@
 /***
 Palette.
 
-Sky Blue: #13ABAB #4AC5C1
-Mid Blue: #2553B6
-Green:    #17D023 #54E254
-Orange:   #FF831C #C4793E #FFA65F
-
-
 Base:      #84d0d6
 Left:      #8697ed
 Leftest:   #b265e3
@@ -40,7 +34,7 @@ article {
     overflow: hidden;
 }
 
-article h1 { 
+article h3 { 
     font-size: 120%; 
     color: #c2e380;
     text-align: left;
@@ -127,11 +121,6 @@ a.feed-button {
     display: block;
 }
 
-a.feed-button:hover {
-    text-decoration: none;
-    background: #86eda2;
-}
+a.feed-button:hover { text-decoration: none; background: #86eda2; }
 
-a#feed-edit {
-    margin-top: 1.5ex;
-}
+a#feed-edit { margin-top: 1.5ex; }

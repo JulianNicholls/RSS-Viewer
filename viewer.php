@@ -17,7 +17,7 @@
 
     if( isset( $_GET['url'] ) )         // Passed a URL as a GET variable?
         $url = $_GET['url'];
-    elseif( isset( $_GET['aggregate'] ) )   // BETA: Aggregate the selected feeds
+    elseif( isset( $_GET['aggregate'] ) )   // Aggregate the selected feeds
     {
         $aggregated = true;
         $url        = array();
@@ -125,7 +125,7 @@
       <?php else : ?>
         <div class="col-md-offset-1 col-md-9">
       <?php endif; ?>
-        <h1><?php echo make_link( $link, $title); ?></h1>
+        <h3><?php echo make_link( $link, $title); ?></h3>
         <?php if( $desc ) :
           echo '<p>' . summarised( $desc, $link ) . "</p>\n";
         elseif( $content ) :
