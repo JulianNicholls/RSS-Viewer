@@ -3,7 +3,7 @@
 
     $sites = new Sites();  // open a link to the Mongo DB for a list of possible URLs to present.
 
-// Any updates or deletes to do?
+// Any inserts, updates or deletes to do?
 
     if( isset( $_POST['feed-url'] ) )
     {
@@ -76,18 +76,18 @@
               <div class="btn-group btn-group-sm">
                 <button class="delete btn btn-danger"
                         data-name="<?php echo $name; ?>" 
-                        data-id="<?php echo $id; ?>">
+                        data-id="<?php echo $id; ?>" title="Delete Feed">
                   <span class="glyphicon glyphicon-remove"></span>
                 </button>
                 <button class="edit btn btn-primary"
                       data-name="<?php echo $name; ?>"
                       data-id="<?php echo $id; ?>"
                       data-url="<?php echo $url; ?>"
-                      data-agg="<?php echo $cur['aggregate']; ?>">
+                      data-agg="<?php echo $cur['aggregate']; ?>" title="Edit Feed">
                   <span class="glyphicon glyphicon-pencil"></span>
                 </button>
                 <button class="go btn btn-info"
-                        data-url="<?php echo $url; ?>">
+                        data-url="<?php echo $url; ?>" title="Show Feed in Viewer">
                   <span class="glyphicon glyphicon-link"></span>
                 </button>
             </div>
@@ -115,7 +115,7 @@
             <label for="updated-name" class="col-lg-1 control-label">Name</label>
             <div class="col-lg-8">
               <input type="text" class="form-control" 
-                     id="feed-name" name="feed-name" placeholder="Name" />
+                     id="feed-name" name="feed-name" placeholder="Name" required />
             </div>
           </div>
 
@@ -123,7 +123,7 @@
             <label for="updated-url" class="col-lg-1 control-label">URL</label>
             <div class="col-lg-8">
               <input type="url" class="form-control" 
-                     id="feed-url" name="feed-url" placeholder="URL" />
+                     id="feed-url" name="feed-url" placeholder="URL" required />
             </div>  
           </div>
 
