@@ -3,6 +3,8 @@
 
     $sites = new Sites();  // open a link to the Mongo DB for a list of possible URLs to present.
 
+    $done = array( 'func' => 0, 'info' => '' );
+    
 // Any inserts, updates or deletes to do?
 
     if( isset( $_POST['feed-url'] ) )
@@ -14,6 +16,8 @@
                 'url'       => $_POST['feed-url'], 
                 'aggregate' => isset( $_POST['feed-agg'] ) ? 1 : 0 
             ) );
+
+            $done = array( 'func' => 1, 'info' => $_POST['feed-name'] . " Added" );
         }
         else
         {
@@ -22,10 +26,16 @@
                 'url'       => $_POST['feed-url'],
                 'aggregate' => isset( $_POST['feed-agg'] ) ? 1 : 0
             ) );
+
+            $done = array( 'func' => 2, 'info' => $_POST['feed-name'] . " Updated" );
         }
     }
     elseif( isset( $_POST['delete'] ) )
+    {
         $sites->remove_by_id( new MongoId( $_POST['delete'] ) );
+        
+        $done = array( 'func' => 3, 'info' => "Feed Deleted" );
+    }
     
 // Load the list of URLs to present
         
@@ -59,8 +69,14 @@
     </div>
     
     <div class="container">
-      <h2>Feeds</h2>
+      <?php if( $done['func'] ) :
+          echo '<div class="alert alert-success">';
+          echo '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>';
+          echo $done['info'] . "\n</div>\n";
+      endif; ?>
+      
       <table class="table table-striped table-bordered table-condensed">
+        <caption><h2>Feeds</h2></caption>
         <thead>
           <tr><th>&nbsp;</th><th>Name</th><th>URL</th><th>Aggregate?</th></tr>
         </thead>
@@ -74,19 +90,19 @@
           <tr>
             <td>
               <div class="btn-group btn-group-sm">
-                <button class="delete btn btn-danger"
+                <button class="delete btn btn-danger btm-sm"
                         data-name="<?php echo $name; ?>" 
                         data-id="<?php echo $id; ?>" title="Delete Feed">
                   <span class="glyphicon glyphicon-remove"></span>
                 </button>
-                <button class="edit btn btn-primary"
+                <button class="edit btn btn-primary btm-sm"
                       data-name="<?php echo $name; ?>"
                       data-id="<?php echo $id; ?>"
                       data-url="<?php echo $url; ?>"
                       data-agg="<?php echo $cur['aggregate']; ?>" title="Edit Feed">
                   <span class="glyphicon glyphicon-pencil"></span>
                 </button>
-                <button class="go btn btn-info"
+                <button class="go btn btn-info btm-sm"
                         data-url="<?php echo $url; ?>" title="Show Feed in Viewer">
                   <span class="glyphicon glyphicon-link"></span>
                 </button>

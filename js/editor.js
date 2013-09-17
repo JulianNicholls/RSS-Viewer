@@ -61,7 +61,6 @@ $(function() {
             .html( '<span class="glyphicon glyphicon-plus"></span> Add New Feed' )
             .val( 'add' );
 
-//        $(this).slideUp( 600 );
         $form.slideDown( 600 );
     });
 });
