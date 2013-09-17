@@ -89,7 +89,7 @@
         <h1><?php echo $title; ?></h1>
         <?php if( $items ) :
           echo '<h2>' . summarised( strip_tags( $feed->get_description() ), $url ) . "</h2>\n";
-          if( $copyright ) { echo "<p>$copyright</p>\n"; }
+          if( $copyright ) { echo "<p><small>$copyright</small></p>\n"; }
         endif; ?>
       </div>
       <div class="col-md-2">
@@ -103,7 +103,7 @@
 <?php if( !$items ) { die(); }      // Bail out if there's no items to show ?>   
       
     <div class="container">
-    <section id="items">
+    <section id="items">            <!-- Start of Items Section -->
         
 <?php 
     foreach( $items as $item ) : 
@@ -153,7 +153,7 @@
         endif; ?>
         </div>
         <div class="col-md-2">
-          <span class="stamp"><?php echo human_time( $item->get_date('U') ); ?></span>
+          <span class="stamp"><small><?php echo human_time( $item->get_date('U') ); ?></small></span>
         </div>
       </article>
     <?php endforeach; ?>
