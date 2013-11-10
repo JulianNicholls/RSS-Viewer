@@ -48,7 +48,7 @@ function human_time( $time, $now = 0 )
     {
         if( $elapsed < (71*60) )
             $retval = sprintf( "%.0f minutes", ($elapsed / 60.0) );
-        elseif( $time < $midday )
+        elseif( $time < $midday && $now > $midday )
             return "this morning";
         else
             $retval = sprintf( "%.0f hours", $hours );   # Followed by Hours
@@ -57,7 +57,7 @@ function human_time( $time, $now = 0 )
         return "yesterday";             # Then Days
     elseif( $days >= 1 && $days <= 2.5 )
         $retval = "a couple of days";
-    elseif( $days >= 2.6 && $days <= 4.5 )
+    elseif( $days > 2.5 && $days <= 4.5 )
         $retval = "a few days";
     elseif( $days > 4.5 && $days <= 8.5 )
         $retval = "a week";

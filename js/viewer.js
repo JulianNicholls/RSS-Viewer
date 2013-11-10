@@ -8,7 +8,7 @@ $(function() {
     // Choose Feed button clicked: Open the feeds panel.
     
     $(document).on( 'click', "a.open-feeds", function() {
-        $("div#feeds").slideDown( 600 );
+        $("div#feeds").slideDown( 500 );
     });
 
     // Close button (or feed button) clicked: Close the feeds panel.

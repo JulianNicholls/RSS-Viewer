@@ -39,13 +39,13 @@
     
     if( !$feed->init() )
     {
-        $title      = "Cannot read $url<br />" . $feed->error();
-        $items      = null;
-        $image      = null;
+        $title  = "Cannot read $url<br />" . $feed->error();
+        $items  = null;
+        $image  = null;
     }
     else
     {
-        $items      = $feed->get_items();
+        $items  = $feed->get_items();
         
         if( $aggregated )
         {
@@ -100,10 +100,10 @@
       </div>      
     </header>
         
-<?php if( !$items ) { die(); }      // Bail out if there's no items to show ?>   
+<?php if( !$items ) { die(); }      // Bail out if there's no items to show ?>
       
     <div class="container">
-    <section id="items">            <!-- Start of Items Section -->
+      <section id="items">            <!-- Start of Items Section -->
         
 <?php 
     foreach( $items as $item ) : 
@@ -153,12 +153,12 @@
         endif; ?>
         </div>
         <div class="col-md-2">
-          <span class="stamp"><small><?php echo human_time( $item->get_date('U') ); ?></small></span>
+          <small class="pull-right"><?php echo human_time( $item->get_date('U') ); ?></small>
         </div>
       </article>
     <?php endforeach; ?>
-    </section>  <!-- items -->
-    </div>      <!-- container -->
+      </section>  <!-- items -->
+    </div>        <!-- container -->
     
     <div id="feeds">    <!-- Feed Panel -->
       <a class="close-button">&nbsp;</a>
