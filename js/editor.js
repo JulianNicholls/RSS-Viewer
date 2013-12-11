@@ -35,7 +35,7 @@ $(function() {
             .html( '<span class="glyphicon glyphicon-ok-sign"></span> Update Feed' )
             .val( 'update' );
         
-        $form.slideDown( 500 );
+        $form.slideDown( 400 );
     });
     
     
@@ -61,6 +61,6 @@ $(function() {
             .html( '<span class="glyphicon glyphicon-plus"></span> Add New Feed' )
             .val( 'add' );
 
-        $form.slideDown( 500 );
+        $form.slideDown( 400 );
     });
 });
