@@ -6,7 +6,7 @@
 
 //---------------------------------------------------------------------------
 
-    require_once "../simplepie/autoloader.php";
+    require_once "simplepie/autoloader.php";
     require_once "humantime.php";
     require_once "sites.php";
 
