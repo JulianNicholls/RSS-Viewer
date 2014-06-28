@@ -1,7 +1,7 @@
 <?php
 
 //---------------------------------------------------------------------------
-// Return a string with a 'human' representation of how long ago a passed 
+// Return a string with a 'human' representation of how long ago a passed
 // time was.
 //
 // Entry:   $time   Unix Timestamp of time to report on.
@@ -15,24 +15,24 @@ function human_time( $time, $now = 0 )
 {
     if( $now == 0 )     // Now
         $now = time();
-        
+
     $d = date( 'd', $now );
     $m = date( 'm', $now );
     $y = date( 'Y', $now );
-    
+
     $midnight = mktime( 0, 0, 0, $m, $d, $y );
     $midday   = mktime( 12, 0, 0, $m, $d, $y );
-    
+
     $elapsed  = $now - $time;
     $hours    = ($elapsed / 3600.0 ) + 0.45;
     $days     = ($midnight - $time) / 86400.0;
 
     if( $elapsed <= 90 )                 # Start with a few seconds
         return "just now";               # and bail out because no ' ago' needed
-        
+
     if( $elapsed <= 150 )                # Then Minutes
         $retval = "a couple of minutes";
-    elseif( $elapsed <= 210 ) # 3:30
+    elseif( $elapsed <= 210 )         # 3:30
         $retval = "a few minutes";
     elseif( $elapsed > (3*60+30) && $elapsed < (7*60) )
         $retval = "five minutes";
@@ -75,6 +75,6 @@ function human_time( $time, $now = 0 )
         $retval = sprintf( "%.0f months", $days / 30 );
     else
         $retval = sprintf( "%.0f years", ($days / 365) + 0.5 );    # ... and years
-        
+
     return $retval . ' ago';
 }
