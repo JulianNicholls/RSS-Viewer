@@ -52,6 +52,7 @@
             $title      = "Aggregated Feed";
             $copyright  = "";
             $image      = "";
+            $url        = $url[0];
         }
         else
         {
@@ -132,7 +133,7 @@
           echo '<p>' . summarised( $content, $link ) . "</p>\n";
         endif ?>
 
-        <?php if( !empty( $author ) ) : ?>
+        <?php if( !empty( $author ) && !empty( $author->get_name() ) ) : ?>
           <p>Author: <?php echo $author->get_name(); ?></p>
         <?php endif; ?>
 
