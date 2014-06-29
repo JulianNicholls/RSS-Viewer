@@ -28,6 +28,9 @@ function resize_columns()
     var $imgs = $("#items img");
 
     $imgs.each( function( idx ) {
+        if( this.width > 180 )
+            this.width = 180
+
         if( this.width > 80 )
         {
             var $ourDiv = $(this).parent( 'a' ).parent('div'),
