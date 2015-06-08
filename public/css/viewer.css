@@ -1,0 +1,118 @@
+/***
+Palette.
+
+Base:      #84d0d6
+Left:      #8697ed
+Leftest:   #b265e3
+Right:     #86eda2
+Rightest:  #c2e380
+
+***/
+
+
+.container { padding: 10px 15px; }
+
+header { background: #84d0d6; padding-bottom: 10px; }
+
+header p {
+    margin: 0 0 1ex 1em;
+    color: white;
+}
+
+h1 { font-size: 150%; text-align: center; color: #fff; }
+h2 { font-size: 120%; text-align: center; color: #fff; }
+
+
+/*** Item Articles ***/
+
+article {
+    margin-top: 2px;
+    background: #8697ed;
+    color: #fff;
+    padding: 10px;
+    overflow: hidden;
+}
+
+article h3 {
+    font-size: 120%;
+    color: #c2e380;
+    text-align: left;
+    margin: 0 0 0.5ex 2em;
+}
+
+article a, article a:visited {
+    text-decoration: none;
+    color: #c2e380;
+    text-shadow: 0px -1px 1px #ddd, 0px 1px 1px #222;
+}
+
+article a:hover {
+    text-decoration: none;
+    color: #c2e380;
+    text-shadow: 0px -1px 1px #222, 0px 1px 1px #ddd;
+}
+
+
+a.bright-link {
+    font-size: 9pt;
+    text-decoration: none;
+    display: block;
+    margin: 2px 0.5em 0 0;
+    cursor: pointer;
+    padding: 0.5ex 0.5em;
+    background: #c2e380;
+    color: white;
+    -webkit-transition: margin 0.5s, background 0.5s;
+    -moz-transition: margin 0.5s, background 0.5s;
+    transition: margin 0.5s, background 0.5s;
+}
+
+a.bright-link:hover {
+    text-decoration: none;
+    background: #86eda2;
+    cursor: pointer;
+}
+
+
+/*** Feeds panel ***/
+
+div#feeds {
+    z-index: 1;
+    display: none;
+    position: fixed;
+    top: 150px;
+    left: 300px;
+    width: 450px;
+    padding: 0 10px 1ex 10px;
+    background: #84d0d6;
+    border: 2px solid white;
+    border-radius: 20px;
+    box-shadow: 2px 2px 5px rgba( 0, 0, 0, 50%);
+}
+
+a.close-button {
+    z-index: 2;
+	background: url( '../images/close.png' ) no-repeat 0 0;
+	position: absolute;
+	top: -15px;
+	right: -15px;
+	width: 46px;
+	height: 46px;
+    cursor: pointer;
+}
+
+a.feed-button {
+    width: 350px;
+    height: 30px;
+    background: #c2e380;
+    color: #fff;
+    margin: 0.5ex auto;
+    line-height: 30px;
+    border-radius: 30px 0 30px;
+    text-align: center;
+    display: block;
+}
+
+a.feed-button:hover { text-decoration: none; background: #86eda2; }
+
+a#feed-edit { margin-top: 1.5ex; }
