@@ -52,15 +52,9 @@
     <meta name="author" content="Julian Nicholls">
     <title>ARSS Editor</title>
 
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
     <link href="css/editor.css" rel="stylesheet">
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="js/html5shiv.js"></script>
-      <script src="js/respond.min.js"></script>
-    <![endif]-->
-
   </head>
 
   <body>
@@ -75,7 +69,7 @@
           echo $done['info'] . "\n</div>\n";
       endif; ?>
 
-      <table class="table table-striped table-bordered table-condensed">
+      <table class="table table-striped table-bordered">
         <caption><h2>Feeds</h2></caption>
         <thead>
           <tr><th>&nbsp;</th><th>Name</th><th>URL</th><th>Aggregate?</th></tr>
@@ -116,7 +110,7 @@
         </tbody>
       </table>
 
-      <button id="new" class="btn btn-default">
+      <button id="new" class="btn btn-primary">
         <span class="glyphicon glyphicon-plus"></span> Add New Feed
       </button>
 
@@ -167,8 +161,7 @@
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="http://code.jquery.com/jquery.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script src="js/editor.js"></script>
   </body>
 </html>

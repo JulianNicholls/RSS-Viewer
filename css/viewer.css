@@ -62,8 +62,6 @@ a.bright-link {
     padding: 0.5ex 0.5em;
     background: #c2e380;
     color: white;
-    -webkit-transition: margin 0.5s, background 0.5s;
-    -moz-transition: margin 0.5s, background 0.5s;
     transition: margin 0.5s, background 0.5s;
 }
 
