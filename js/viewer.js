@@ -7,15 +7,19 @@ $(function() {
 
     // Choose Feed button clicked: Open the feeds panel.
 
-    $(document).on( 'click', "a.open-feeds", function() {
-        $("div#feeds").slideDown( 400 );
+    $("a.open-feeds").click(function() {
+        $("div#feeds").slideDown(400);
     });
 
     // Close button (or feed button) clicked: Close the feeds panel.
 
-    $(document).on( 'click', "a.close-button, a.feed-button", function() {
+    $("a.close-button").click(function() {
         $("div#feeds").fadeOut( 400 );
 	});
+
+    $("a.list-group-item").click(function() {
+        $("div#feeds").append('<h3 class="text-center">Loading&hellip;</h3>');
+    });
 });
 
 
@@ -27,12 +31,11 @@ function resize_columns()
 {
     var $imgs = $("#items img");
 
-    $imgs.each( function( idx ) {
-        if( this.width > 180 )
+    $imgs.each(function() {
+        if(this.width > 180)
             this.width = 180
 
-        if( this.width > 80 )
-        {
+        if( this.width > 80 ) {
             var $ourDiv = $(this).parent( 'a' ).parent('div'),
                 $next   = $ourDiv.next( 'div' );
 
