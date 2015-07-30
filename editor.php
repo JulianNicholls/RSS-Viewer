@@ -69,7 +69,7 @@
           echo $done['info'] . "\n</div>\n";
       endif; ?>
 
-      <table class="table table-striped table-bordered">
+      <table class="table table-bordered">
         <caption><h2>Feeds</h2></caption>
         <thead>
           <tr><th>&nbsp;</th><th>Name</th><th>URL</th><th>Aggregate?</th></tr>
@@ -94,7 +94,7 @@
                       data-id="<?php echo $id; ?>"
                       data-url="<?php echo $url; ?>"
                       data-agg="<?php echo $cur['aggregate']; ?>" title="Edit Feed">
-                  <span class="glyphicon glyphicon-pencil"></span>
+                  <span class="glyphicon glyphicon-edit"></span>
                 </button>
                 <button class="go btn btn-info btm-sm"
                         data-url="<?php echo $url; ?>" title="Show Feed in Viewer">
@@ -105,7 +105,8 @@
             <?php
               echo "<td>$name</td>\n";
               echo "<td>$url</td>\n";
-              echo "<td class=\"agg\">$agg</td>\n</tr>\n";
+              $agg_class = ($agg == 'No') ? 'danger' : 'success';
+              echo "<td class=\"agg $agg_class\">$agg</td>\n</tr>\n";
           endforeach; ?>
         </tbody>
       </table>
