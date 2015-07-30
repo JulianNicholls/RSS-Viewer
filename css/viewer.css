@@ -1,57 +1,34 @@
 /***
 Palette.
 
-Base:      #84d0d6
-Left:      #8697ed
-Leftest:   #b265e3
-Right:     #86eda2
-Rightest:  #c2e380
+Base:      #84d0d6      #1f5000
+Left:      #8697ed      #0d832b
+Leftest:   #b265e3      #49b665
+Right:     #86eda2      #48175d
+Rightest:  #c2e380      #400D83
 
 ***/
 
+body {
+    background: #1f5000;
+}
 
 .container { padding: 10px 15px; }
 
-header { background: #84d0d6; padding-bottom: 10px; }
+header { background: #0d832b; padding-bottom: 10px; }
 
 header p {
     margin: 0 0 1ex 1em;
     color: white;
 }
 
+header img {
+    display: block;
+    margin: 10px auto;
+}
+
 h1 { font-size: 150%; text-align: center; color: #fff; }
 h2 { font-size: 120%; text-align: center; color: #fff; }
-
-
-/*** Item Articles ***/
-
-article {
-    margin-top: 2px;
-    background: #8697ed;
-    color: #fff;
-    padding: 10px;
-    overflow: hidden;
-}
-
-article h3 {
-    font-size: 120%;
-    color: #c2e380;
-    text-align: left;
-    margin: 0 0 0.5ex 2em;
-}
-
-article a, article a:visited {
-    text-decoration: none;
-    color: #c2e380;
-    text-shadow: 0px -1px 1px #ddd, 0px 1px 1px #222;
-}
-
-article a:hover {
-    text-decoration: none;
-    color: #c2e380;
-    text-shadow: 0px -1px 1px #222, 0px 1px 1px #ddd;
-}
-
 
 a.bright-link {
     font-size: 9pt;
@@ -60,15 +37,45 @@ a.bright-link {
     margin: 2px 0.5em 0 0;
     cursor: pointer;
     padding: 0.5ex 0.5em;
-    background: #c2e380;
+    background: #49b665;
     color: white;
     transition: margin 0.5s, background 0.5s;
 }
 
 a.bright-link:hover {
     text-decoration: none;
-    background: #86eda2;
+    background: #1f5000;
     cursor: pointer;
+}
+
+
+/*** Item Articles ***/
+
+article {
+    margin-top: 2px;
+    background: #0d832b;
+    color: #fff;
+    padding: 10px;
+    overflow: hidden;
+}
+
+article h3 {
+    font-size: 120%;
+    /*color: #c2e380;*/
+    text-align: left;
+    margin-top: 0;
+}
+
+article a, article a:visited {
+    text-decoration: none;
+    color: #400d83;
+    /*text-shadow: 0px -1px 1px #ddd, 0px 1px 1px #222;*/
+}
+
+article a:hover {
+    text-decoration: none;
+    color: #48175d;
+    /*text-shadow: 0px -1px 1px #222, 0px 1px 1px #ddd;*/
 }
 
 
@@ -82,7 +89,7 @@ div#feeds {
     left: 300px;
     width: 450px;
     padding: 0 10px 1ex 10px;
-    background: #84d0d6;
+    background: #48175d;
     border: 2px solid white;
     border-radius: 20px;
     box-shadow: 2px 2px 5px rgba( 0, 0, 0, 50%);
@@ -102,15 +109,15 @@ a.close-button {
 a.feed-button {
     width: 350px;
     height: 30px;
-    background: #c2e380;
+    background: #49b665;
     color: #fff;
-    margin: 0.5ex auto;
+    margin: 10px auto;
     line-height: 30px;
-    border-radius: 30px 0 30px;
+    border-radius: 5px;
     text-align: center;
     display: block;
 }
 
-a.feed-button:hover { text-decoration: none; background: #86eda2; }
+a.feed-button:hover { text-decoration: none; background: #1f5000; }
 
-a#feed-edit { margin-top: 1.5ex; }
+a#feed-edit { margin-top: 20px; margin-bottom: 20px; }
