@@ -78,17 +78,17 @@
 
   <body>
     <header class="row">
-      <div class="col-md-2">
+      <div class="col-sm-2">
         <?php if( $image ) { echo "<img src=\"$image\" alt=\"$title\" />\n"; } ?>
       </div>
-      <div class="col-md-8">
+      <div class="col-sm-8">
         <h1><?php echo $title; ?></h1>
         <?php if( $items ) :
           echo '<h2>' . summarised( strip_tags( $feed->get_description() ), $url ) . "</h2>\n";
-          if( $copyright ) { echo "<p><small>$copyright</small></p>\n"; }
+          if( $copyright ) { echo "<p class=\"text-center\"><small>$copyright</small></p>\n"; }
         endif; ?>
       </div>
-      <div class="col-md-2">
+      <div class="col-sm-2">
         <p><span class="badge"><?php echo $feed->get_item_quantity(); ?></span> Items</p>
         <a class="bright-link open-feeds"><span class="glyphicon glyphicon-align-justify"></span> Feeds</a>
         <a class="bright-link" href="<?php echo "$self?url=$url"; ?>"><span class="glyphicon glyphicon-refresh"></span> Refresh</a>
@@ -114,12 +114,12 @@
     ?>
       <article class="row">
       <?php if( $enc && ($tn = $enc->get_thumbnail()) ) : ?>
-        <div class="col-md-1">
+        <div class="col-sm-1">
           <?php echo make_link( $link, "<img src=\"$tn\" alt=\"$title\" />" ); ?>
         </div>
-        <div class="col-md-9">
+        <div class="col-sm-9">
       <?php else : ?>
-        <div class="col-md-offset-1 col-md-9">
+        <div class="col-sm-offset-1 col-sm-9">
       <?php endif; ?>
         <h3><?php echo make_link( $link, $title); ?></h3>
         <?php if( $desc ) :
@@ -148,7 +148,7 @@
           echo "</p>\n";
         endif; ?>
         </div>
-        <div class="col-md-2">
+        <div class="col-sm-2">
           <small class="pull-right"><?php echo human_time( $item->get_date('U') ); ?></small>
         </div>
       </article>
@@ -166,7 +166,6 @@
       <a class="feed-button" id="feed-edit" href="editor.php">Edit Feeds &hellip;</a>
     </div>  <!-- feeds -->
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="//code.jquery.com/jquery.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script src="js/viewer.js"></script>

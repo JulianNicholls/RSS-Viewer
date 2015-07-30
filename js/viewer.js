@@ -36,8 +36,8 @@ function resize_columns()
             var $ourDiv = $(this).parent( 'a' ).parent('div'),
                 $next   = $ourDiv.next( 'div' );
 
-            $ourDiv.removeClass( 'col-md-1' ).addClass( 'col-md-2' );
-            $next.removeClass( 'col-md-9' ).addClass( 'col-md-8' );
+            $ourDiv.removeClass( 'col-sm-1' ).addClass( 'col-sm-2' );
+            $next.removeClass( 'col-sm-9' ).addClass( 'col-sm-8' );
         }
     });
 }
