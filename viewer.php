@@ -156,15 +156,22 @@
       </section>  <!-- items -->
     </div>        <!-- container -->
 
-    <div id="feeds">    <!-- Feed Panel -->
+
+    <div id="feeds" class="panel panel-primary">
       <a class="close-button">&nbsp;</a>
-      <h1>Feeds</h1>
+      <div class="panel-heading">
+        Feeds
+        <a id="feed-edit" class="pull-right btn btn-default" href="editor.php">
+          <i class="glyphicon glyphicon-edit"></i> Edit
+        </a>
+      </div>
+      <ul class="list-group">
       <?php foreach( $urllist as $url ) :
-        echo "<a class=\"feed-button\" href=\"$self?url={$url['url']}\">" .
-            $url['name'] . "</a>\n";
+        echo "<li class=\"list-group-item\"><a class=\"feed-button\" href=\"$self?url={$url['url']}\">" .
+             $url['name'] . "</a></li>\n";
       endforeach; ?>
-      <a class="feed-button" id="feed-edit" href="editor.php">Edit Feeds &hellip;</a>
-    </div>  <!-- feeds -->
+      </ul>
+    </div>
 
     <script src="//code.jquery.com/jquery.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>

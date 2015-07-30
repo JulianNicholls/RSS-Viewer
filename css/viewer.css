@@ -1,11 +1,11 @@
 /***
 Palette.
 
-Base:      #84d0d6      #1f5000
-Left:      #8697ed      #0d832b
-Leftest:   #b265e3      #49b665
-Right:     #86eda2      #48175d
-Rightest:  #c2e380      #400D83
+Base:      #1f5000
+Left:      #0d832b
+Leftest:   #49b665
+Right:     #48175d
+Rightest:  #400D83
 
 ***/
 
@@ -82,42 +82,41 @@ article a:hover {
 /*** Feeds panel ***/
 
 div#feeds {
-    z-index: 1;
+    /*z-index: 1;*/
     display: none;
     position: fixed;
     top: 150px;
     left: 300px;
     width: 450px;
-    padding: 0 10px 1ex 10px;
-    background: #48175d;
-    border: 2px solid white;
-    border-radius: 20px;
+    /*padding: 0 10px 1ex 10px;*/
+    /*background: #48175d;*/
+    /*border: 2px solid white;*/
+    /*border-radius: 20px;*/
     box-shadow: 2px 2px 5px rgba( 0, 0, 0, 50%);
+}
+
+a#feed-edit {
+    margin-top: -6px;
 }
 
 a.close-button {
     z-index: 2;
-	background: url( '../images/close.png' ) no-repeat 0 0;
+	background: url( '../images/deletebutton.png' ) no-repeat 0 0;
 	position: absolute;
-	top: -15px;
-	right: -15px;
-	width: 46px;
-	height: 46px;
+	top: -12px;
+	right: -12px;
+    width: 23px;
+    height: 23px;
     cursor: pointer;
 }
 
 a.feed-button {
-    width: 350px;
-    height: 30px;
-    background: #49b665;
-    color: #fff;
-    margin: 10px auto;
-    line-height: 30px;
-    border-radius: 5px;
+    text-decoration: none;
+    color: #400d83;
     text-align: center;
-    display: block;
 }
 
-a.feed-button:hover { text-decoration: none; background: #1f5000; }
-
-a#feed-edit { margin-top: 20px; margin-bottom: 20px; }
+a.feed-button:hover {
+    text-decoration: none;
+    color: #1f5000;
+}
