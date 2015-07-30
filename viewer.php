@@ -16,30 +16,30 @@
     $aggregated = false;
 
     if( isset( $_GET['url'] ) )         // Passed a URL as a GET variable?
-        $url = $_GET['url'];
+        $display_url = $_GET['url'];
     elseif( isset( $_GET['aggregate'] ) )   // Aggregate the selected feeds
     {
-        $aggregated = true;
-        $url        = array();
+        $aggregated  = true;
+        $display_url = array();
 
         foreach( $urllist as $cur )
         {
             if( $cur['aggregate'] )
-                $url[] = $cur['url'];
+                $display_url[] = $cur['url'];
         }
     }
     else
-        $url = $default_url;                // Default URL
+        $display_url = $default_url;                // Default URL
 
 // Now, we attach to the URL(s) selected.
 
     $feed = new SimplePie();
-    $feed->set_feed_url( $url );
+    $feed->set_feed_url( $display_url );
     $feed->set_cache_duration( 420 );   // Seven minutes
 
     if( !$feed->init() )
     {
-        $title  = "Cannot read $url<br />" . $feed->error();
+        $title  = "<small>Cannot read $display_url<br />" . $feed->error() . '</small>';
         $items  = null;
         $image  = null;
     }
@@ -52,7 +52,7 @@
             $title      = "Aggregated Feed";
             $copyright  = "";
             $image      = "";
-            $url        = $url[0];
+            $display_url= $display_url[0];
         }
         else
         {
@@ -84,19 +84,17 @@
       <div class="col-sm-8">
         <h1><?php echo $title; ?></h1>
         <?php if( $items ) :
-          echo '<h2>' . summarised( strip_tags( $feed->get_description() ), $url ) . "</h2>\n";
+          echo '<h2>' . summarised( strip_tags( $feed->get_description() ), $display_url ) . "</h2>\n";
           if( $copyright ) { echo "<p class=\"text-center\"><small>$copyright</small></p>\n"; }
         endif; ?>
       </div>
       <div class="col-sm-2">
         <p><span class="badge"><?php echo $feed->get_item_quantity(); ?></span> Items</p>
         <a class="bright-link open-feeds"><span class="glyphicon glyphicon-align-justify"></span> Feeds</a>
-        <a class="bright-link" href="<?php echo "$self?url=$url"; ?>"><span class="glyphicon glyphicon-refresh"></span> Refresh</a>
+        <a class="bright-link" href="<?php echo "$self?url=$display_url"; ?>"><span class="glyphicon glyphicon-refresh"></span> Refresh</a>
         <a class="bright-link" href="<?php echo "$self?aggregate=1"; ?>"><span class="glyphicon glyphicon-compressed"></span> Aggregate</a>
       </div>
     </header>
-
-<?php if( !$items ) { die(); }      // Bail out if there's no items to show ?>
 
     <div class="container">
       <section id="items">            <!-- Start of Items Section -->
@@ -156,21 +154,21 @@
       </section>  <!-- items -->
     </div>        <!-- container -->
 
-
     <div id="feeds" class="panel panel-primary">
       <a class="close-button">&nbsp;</a>
       <div class="panel-heading">
-        Feeds
+        <h3 class="panel-title">Feeds</h3>
         <a id="feed-edit" class="pull-right btn btn-default" href="editor.php">
           <i class="glyphicon glyphicon-edit"></i> Edit
         </a>
       </div>
-      <ul class="list-group">
-      <?php foreach( $urllist as $url ) :
-        echo "<li class=\"list-group-item\"><a class=\"feed-button\" href=\"$self?url={$url['url']}\">" .
-             $url['name'] . "</a></li>\n";
+      <div class="list-group">
+      <?php foreach( $urllist as $cur ) :
+        $active = ($cur['url'] == $display_url) ? 'active' : '';
+        echo "<a class=\"list-group-item $active\" href=\"$self?url={$cur['url']}\">" .
+             $cur['name'] . "</a>\n";
       endforeach; ?>
-      </ul>
+      </div>
     </div>
 
     <script src="//code.jquery.com/jquery.js"></script>
