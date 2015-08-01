@@ -1,21 +1,21 @@
 /***
 Palette.
 
-Base:      #1f5000
-Left:      #0d832b
-Leftest:   #49b665
-Right:     #48175d
-Rightest:  #400D83
+Base:      #003601
+Left:      #0A6941
+Leftest:   #3E9C74
+Right:     #421141
+Rightest:  #500A69
 
 ***/
 
 body {
-    background: #1f5000;
+    background: #003601;
 }
 
 .container { padding: 10px 15px; }
 
-header { background: #0d832b; padding-bottom: 10px; }
+header { background: #0A6941; padding-bottom: 10px; }
 
 header p {
     margin: 0 0 1ex 1em;
@@ -37,14 +37,14 @@ a.bright-link {
     margin: 2px 0.5em 0 0;
     cursor: pointer;
     padding: 0.5ex 0.5em;
-    background: #49b665;
+    background: #3e9c74;
     color: white;
     transition: margin 0.5s, background 0.5s;
 }
 
 a.bright-link:hover {
     text-decoration: none;
-    background: #1f5000;
+    background: #003601;
     cursor: pointer;
 }
 
@@ -53,28 +53,27 @@ a.bright-link:hover {
 
 article {
     margin-top: 2px;
-    background: #0d832b;
-    color: #fff;
+    background: #3e9c74;
+    color: #000;
     padding: 10px;
     overflow: hidden;
 }
 
 article h3 {
     font-size: 120%;
-    /*color: #c2e380;*/
     text-align: left;
     margin-top: 0;
 }
 
 article a, article a:visited {
     text-decoration: none;
-    color: #400d83;
+    color: #421141;
     /*text-shadow: 0px -1px 1px #ddd, 0px 1px 1px #222;*/
 }
 
 article a:hover {
     text-decoration: none;
-    color: #48175d;
+    color: #500A69;
     /*text-shadow: 0px -1px 1px #222, 0px 1px 1px #ddd;*/
 }
 
@@ -86,9 +85,9 @@ div#feeds {
     display: none;
     position: fixed;
     min-width: 300px;
-    top: 150px;
-    left: 300px;
-    box-shadow: 2px 2px 5px rgba( 0, 0, 0, 50%);
+    top: 130px;
+    right: 100px;
+    box-shadow: 2px 2px 5px 1px rgba( 0, 0, 0, 0.50) !important;
 }
 
 a#feed-edit {

@@ -64,7 +64,7 @@
 
     <div class="container">
       <?php if( $done['func'] ) :
-          echo '<div class="alert alert-success">';
+          echo '<div class="alert alert-success alert-dismissable">';
           echo '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>';
           echo $done['info'] . "\n</div>\n";
       endif; ?>
