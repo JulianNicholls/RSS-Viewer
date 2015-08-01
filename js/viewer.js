@@ -2,7 +2,6 @@
 // JavaScript for the ARSS Viewer
 
 $(function() {
-
     $(window).load( resize_columns );
 
     // Choose Feed button clicked: Open the feeds panel.
@@ -11,12 +10,13 @@ $(function() {
         $("div#feeds").slideDown(400);
     });
 
-    // Close button (or feed button) clicked: Close the feeds panel.
+    // Close button clicked: Close the feeds panel.
 
     $("a.close-button").click(function() {
         $("div#feeds").fadeOut( 400 );
 	});
 
+    // Feed clicked on. Add a loading message
     $("a.list-group-item").click(function() {
         $("div#feeds").append('<h3 class="text-center">Loading&hellip;</h3>');
     });
