@@ -81,26 +81,12 @@ article a:hover {
 /*** Feeds panel ***/
 
 div#feeds {
-    z-index: 1;
+/*    z-index: 1;
     display: none;
     position: fixed;
     min-width: 300px;
     top: 130px;
     right: 100px;
     box-shadow: 2px 2px 5px 1px rgba( 0, 0, 0, 0.50) !important;
-}
-
-a#feed-edit {
-    margin-top: -25px;
-}
-
-a.close-button {
-    z-index: 2;
-	background: url( '../images/deletebutton.png' ) no-repeat 0 0;
-	position: absolute;
-	top: -16px;
-	right: -16px;
-    width: 32px;
-    height: 32px;
-    cursor: pointer;
+*/
 }

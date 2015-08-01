@@ -90,7 +90,7 @@
       </div>
       <div class="col-sm-2">
         <p><span class="badge"><?php echo $feed->get_item_quantity(); ?></span> Items</p>
-        <a class="bright-link open-feeds"><span class="glyphicon glyphicon-align-justify"></span> Feeds</a>
+        <a class="bright-link" data-toggle="modal" data-target="#feeds"><span class="glyphicon glyphicon-align-justify"></span> Feeds</a>
         <a class="bright-link" href="<?php echo "$self?url=$display_url"; ?>"><span class="glyphicon glyphicon-refresh"></span> Refresh</a>
         <a class="bright-link" href="<?php echo "$self?aggregate=1"; ?>"><span class="glyphicon glyphicon-compressed"></span> Aggregate</a>
       </div>
@@ -154,20 +154,28 @@
       </section>  <!-- items -->
     </div>        <!-- container -->
 
-    <div id="feeds" class="panel panel-primary">
-      <a class="close-button">&nbsp;</a>
-      <div class="panel-heading">
-        <h3 class="panel-title">Feeds</h3>
-        <a id="feed-edit" class="pull-right btn btn-default" href="editor.php">
-          <i class="glyphicon glyphicon-edit"></i> Edit
-        </a>
-      </div>
-      <div class="list-group">
-      <?php foreach( $urllist as $cur ) :
-        $active = ($cur['url'] == $display_url) ? 'active' : '';
-        echo "<a class=\"list-group-item $active\" href=\"$self?url={$cur['url']}\">" .
-             $cur['name'] . "</a>\n";
-      endforeach; ?>
+    <div id="feeds" class="modal fade" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Feeds</h4>
+          </div>
+          <div class="modal-body">
+            <div class="list-group">
+            <?php foreach( $urllist as $cur ) :
+              $active = ($cur['url'] == $display_url) ? 'active' : '';
+              echo "<a class=\"list-group-item $active\" href=\"$self?url={$cur['url']}\">" .
+                   $cur['name'] . "</a>\n";
+            endforeach; ?>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <a href="editor.php" class="btn btn-success">
+              <i class="glyphicon glyphicon-edit"></i> Edit
+            </a>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
       </div>
     </div>
 
