@@ -9,6 +9,13 @@ class Sites
 {
     private $sites;
 
+    // Compare two site entries by name
+
+    static function cmp_sites( $a, $b )
+    {
+        return strcmp( $a['name'], $b['name'] );
+    }
+
     // Attach to MongoDB and select sites collection from feeds DB.
 
     public function __construct()
@@ -56,6 +63,19 @@ class Sites
     public function all()
     {
         $cursor = $this->sites->find();
+
+        return $this->cursor_to_array($cursor);
+    }
+
+    public function aggregated_feed()
+    {
+        $cursor = $this->sites->find(array('aggregate' => 1));
+
+        return $this->cursor_to_array($cursor);
+    }
+
+    private function cursor_to_array($cursor)
+    {
         $urls   = array();
 
         foreach( $cursor as $cur )
@@ -65,15 +85,6 @@ class Sites
 
         return $urls;
     }
-
-
-    // Compare two site entries by name
-
-    static function cmp_sites( $a, $b )
-    {
-        return strcmp( $a['name'], $b['name'] );
-    }
-
 
     // Return the data for a feed by its ID.
 
