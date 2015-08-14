@@ -168,7 +168,9 @@
             <a href="editor.php" class="btn btn-success">
               <i class="glyphicon glyphicon-edit"></i> Edit
             </a>
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-warning" data-dismiss="modal">
+              <i class="glyphicon glyphicon-off"></i> Close
+            </button>
           </div>
         </div>
       </div>
