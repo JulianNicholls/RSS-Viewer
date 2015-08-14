@@ -31,12 +31,12 @@
 // Now, we attach to the URL(s) selected.
 
     $feed = new SimplePie();
-    $feed->set_feed_url( $display_url );
-    $feed->set_cache_duration( 420 );   // Seven minutes
+    $feed->set_feed_url($display_url);
+    $feed->set_cache_duration(420);   // Seven minutes
 
-    if( !$feed->init() )
+    if(!$feed->init())
     {
-        $title  = "<small>Cannot read $display_url<br />" . $feed->error() . '</small>';
+        $title  = "<small>Cannot read $display_url<br />{$feed->error()}</small>";
         $items  = null;
         $image  = null;
     }
@@ -77,14 +77,14 @@
         <?php if( $image ) { echo "<img src=\"$image\" alt=\"$title\" />\n"; } ?>
       </div>
       <div class="col-sm-8">
-        <h1><?php echo $title; ?></h1>
+        <h1><?php echo $title; ?> <small><span class="badge"><?php echo $feed->get_item_quantity(); ?></span></small></h1>
         <?php if( $items ) :
           echo '<h2>' . summarised( strip_tags( $feed->get_description() ), $display_url ) . "</h2>\n";
           if( $copyright ) { echo "<p class=\"text-center\"><small>$copyright</small></p>\n"; }
         endif; ?>
       </div>
       <div class="col-sm-2">
-        <p><span class="badge"><?php echo $feed->get_item_quantity(); ?></span> Items</p>
+
         <a class="bright-link" data-toggle="modal" data-target="#feeds"><span class="glyphicon glyphicon-align-justify"></span> Feeds</a>
         <a class="bright-link" href="<?php echo "$self?url=$display_url"; ?>"><span class="glyphicon glyphicon-refresh"></span> Refresh</a>
         <a class="bright-link" href="<?php echo "$self?aggregate=1"; ?>"><span class="glyphicon glyphicon-compressed"></span> Aggregate</a>
