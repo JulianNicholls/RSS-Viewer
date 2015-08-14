@@ -15,18 +15,15 @@
     $self       = $_SERVER['PHP_SELF'];
     $aggregated = false;
 
-    if( isset( $_GET['url'] ) )         // Passed a URL as a GET variable?
+    if(isset( $_GET['url']))         // Passed a URL as a GET variable?
         $display_url = $_GET['url'];
-    elseif( isset( $_GET['aggregate'] ) )   // Aggregate the selected feeds
+    elseif(isset($_GET['aggregate']))   // Aggregate the selected feeds
     {
         $aggregated  = true;
         $display_url = array();
 
-        foreach( $urllist as $cur )
-        {
-            if( $cur['aggregate'] )
-                $display_url[] = $cur['url'];
-        }
+        foreach($sites->aggregated_feed() as $cur)
+            $display_url[] = $cur['url'];
     }
     else
         $display_url = $default_url;                // Default URL
@@ -47,7 +44,7 @@
     {
         $items  = $feed->get_items();
 
-        if( $aggregated )
+        if($aggregated)
         {
             $title      = "Aggregated Feed";
             $copyright  = "";
@@ -67,8 +64,6 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="ARSS Viewer">
-    <meta name="author" content="Julian Nicholls">
     <title>ARSS <?php echo $title; ?></title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
