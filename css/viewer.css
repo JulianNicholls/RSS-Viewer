@@ -13,9 +13,11 @@ body {
     background: white;
 }
 
-.container { padding: 10px 15px; }
-
-header { background: #0A6941; padding-bottom: 10px; }
+header {
+    background: #0A6941;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
 
 header p {
     margin: 0 0 1ex 1em;
@@ -24,7 +26,16 @@ header p {
 
 header img {
     display: block;
-    margin: 10px auto;
+    padding: 10px 0 0 0;
+}
+
+header a {
+    color: white;
+}
+
+header a:hover {
+    color: white;
+    text-decoration: underline;
 }
 
 h1 { font-size: 150%; text-align: center; color: #fff; }
@@ -34,18 +45,23 @@ a.bright-link {
     font-size: 9pt;
     text-decoration: none;
     display: block;
-    margin: 2px 0.5em 0 0;
+    margin: 4px 0 0 0;
     cursor: pointer;
-    padding: 0.5ex 0.5em;
+    padding: 3px 0.5em;
     background: #3e9c74;
     color: white;
-    transition: margin 0.5s, background 0.5s;
+    transition: padding 0.5s, background 0.5s;
 }
 
 a.bright-link:hover {
     text-decoration: none;
+    padding-left: 14px;
     background: #003601;
     cursor: pointer;
+}
+
+a.bright-link:first-of-type {
+    margin-top: 20px;
 }
 
 
