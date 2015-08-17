@@ -2,51 +2,65 @@
 require 'optparse'
 require 'fileutils'
 
-options = {
-  dir:      '.',
-  dest:     ENV['HTDOCS'] || '',
-  cssdir:   'css',
-  jsdir:    'js',
-  idir:     'images',
-  all:      false
-}
+class CommandLineParser
+  def initialize
+    @options = {
+      dir:      '.',
+      dest:     ENV['HTDOCS'] || '',
+      cssdir:   'css',
+      jsdir:    'js',
+      idir:     'images',
+      all:      false
+    }
 
-parser = OptionParser.new do |opts|
-  opts.banner = "Usage #{$PROGRAM_NAME}: [options]"
+    @parser = OptionParser.new do |opts|
+      opts.banner = "Usage:\n\t#{File.basename $PROGRAM_NAME} [options]"
+      opts.separator ""
 
-  opts.on('-s', '--dir DIR',
-          "Set the source directory (Default: #{options[:dir]})") do |dir|
-    options[:dir] = dir
+      opts.on('-s', '--srcdir DIR',
+              "Set the source directory (Default: #{@options[:dir]})") do |dir|
+        @options[:dir] = dir
+      end
+
+      opts.on('-o', '--destdir DIR',
+              "Set the root destination directory (Default: #{@options[:dest]})") do |dir|
+        @options[:dest] = dir
+      end
+
+      opts.on('-c', '--cssdir DIR',
+              "Set the CSS directory under the root directory (Default: #{@options[:cssdir]})") do |dir|
+        @options[:cssdir] = dir
+      end
+
+      opts.on('-i', '--imagedir DIR',
+              "Set the images directory under the root directory (Default: #{@options[:idir]})") do |dir|
+        @options[:idir] = dir
+      end
+
+      opts.on('-j', '--jsdir DIR',
+              "Set the Javascript directory under the root directory (Default: #{@options[:jssdir]})") do |dir|
+        @options[:jsdir] = dir
+      end
+
+      opts.on('-a', '--all',
+              'Copy all files, rather than updating changed files (Default: update only)') do
+        @options[:all] = true
+      end
+
+      opts.on_tail('-h', '--help', 'Show this help') do
+        puts opts
+        exit
+      end
+    end
   end
 
-  opts.on('-o', '--dest DIR', String,
-          "Set the root destination directory (Default: #{options[:dest]})") do |dir|
-    options[:dest] = dir
-  end
+  def parse
+    @parser.parse!
 
-  opts.on('-c', '--cssdir DIR',
-          "Set the CSS directory under the root directory (Default: #{options[:cssdir]})") do |dir|
-    options[:cssdir] = dir
-  end
-
-  opts.on('-i', '--imagedir DIR',
-          "Set the images directory under the root directory (Default: #{options[:idir]})") do |dir|
-    options[:idir] = dir
-  end
-
-  opts.on('-j', '--jsdir DIR',
-          "Set the Javascript directory under the root directory (Default: #{options[:jssdir]})") do |dir|
-    options[:jsdir] = dir
-  end
-
-  opts.on('-a', '--all',
-          'Copy all files, rather than updating changed files (Default: update only)') do
-    options[:all] = true
-  end
-
-  opts.on_tail('-h', '--help', 'Show this help') do
-    puts opts
-    exit
+    @options
+  rescue => err
+    puts "Argument Error: #{err.message}"
+    exit 1
   end
 end
 
@@ -62,6 +76,14 @@ class SiteUpdater
   CSS_FILES   = /\.(sa|sc|c)ss$/i
   IMAGE_FILES = /\.(png|jpe?g|gif)$/i
   JS_FILES    = /\.js/i
+
+  FILE_TYPES = {
+    php:    PHP_FILES,
+    web:    WEB_FILES,
+    css:    CSS_FILES,
+    image:  IMAGE_FILES,
+    js:     JS_FILES
+  }
 
   attr_reader :fullpath, :files, :fulldest
 
@@ -106,37 +128,23 @@ class SiteUpdater
   # Return the lists of various types of file
   #--------------------------------------------------------------------------
 
-  def php_files
-    return_files PHP_FILES
-  end
-
-  def web_files
-    return_files WEB_FILES
-  end
-
-  def css_files
-    return_files CSS_FILES
-  end
-
-  def js_files
-    return_files JS_FILES
-  end
-
-  def image_files
-    return_files IMAGE_FILES
+  FILE_TYPES.each do |type, regex|
+    define_method("#{type}_files") do
+      return_files regex
+    end
   end
 
   private
 
   def collect_files
-    @files = Dir.new(fullpath).grep WEB_FILES
+    @files = top_level_dir.grep WEB_FILES
     @files += find_files(:cssdir, CSS_FILES)
     @files += find_files(:jsdir, JS_FILES)
     @files += find_files(:idir, IMAGE_FILES)
   end
 
   def find_files(key, pattern)
-    found   = Dir.new(fullpath).grep pattern
+    found   = top_level_dir.grep pattern
 
     rel_dir = @options[key]
 
@@ -174,6 +182,10 @@ class SiteUpdater
 
     cp(fqfn, fqdestdir, verbose: true)
   end
+
+  def top_level_dir
+    Dir.new(fullpath)
+  end
 end
 
 #----------------------------------------------------------------------------
@@ -188,7 +200,7 @@ class CheckedSiteUpdater < SiteUpdater
   # against, which will be created later if it doesn't exist.
   #--------------------------------------------------------------------------
 
-  def initialize(options, update_filename)
+  def initialize(options, update_filename = '.updated')
     super(options)
 
     @update_filename  = File.expand_path update_filename
@@ -240,12 +252,7 @@ end
 # Main
 #----------------------------------------------------------------------------
 
-begin
-  parser.parse!
-rescue => err
-  puts 'Argument Error: ' + err.message
-  exit 1
-end
+options = CommandLineParser.new.parse
 
 if options[:dest].empty?
   puts 'You must set a destination directory or set the HTDOCS variable.'
@@ -255,7 +262,7 @@ end
 sup = if options[:all]
         SiteUpdater.new(options)
       else
-        CheckedSiteUpdater.new(options, '.updated')
+        CheckedSiteUpdater.new(options)
       end
 
 puts "Processing #{sup.fullpath}\nChecking PHP Files..."
