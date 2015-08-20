@@ -2,6 +2,7 @@
 require 'optparse'
 require 'fileutils'
 
+# Command line parser
 class CommandLineParser
   def initialize
     @options = {
@@ -85,7 +86,7 @@ class SiteUpdater
     js:     JS_FILES
   }
 
-  attr_reader :fullpath, :files, :fulldest
+  attr_reader :fullpath, :fulldest
 
   #--------------------------------------------------------------------------
   # Collect the source and base destination directories from the passed hash
@@ -128,13 +129,9 @@ class SiteUpdater
   # Return the lists of various types of file
   #--------------------------------------------------------------------------
 
-  FILE_TYPES.each do |type, regex|
-    define_method("#{type}_files") do
-      return_files regex
-    end
-  end
-
   private
+
+  attr_reader :files
 
   def collect_files
     @files = top_level_dir.grep WEB_FILES
@@ -143,6 +140,7 @@ class SiteUpdater
     @files += find_files(:idir, IMAGE_FILES)
   end
 
+  # Find the selected files in the root and also in the specified directory
   def find_files(key, pattern)
     found   = top_level_dir.grep pattern
 
@@ -164,6 +162,12 @@ class SiteUpdater
   #--------------------------------------------------------------------------
   # Return a selection of file parameterised by the passed string.
   #--------------------------------------------------------------------------
+
+  FILE_TYPES.each do |type, regex|
+    define_method("#{type}_files") do
+      return_files regex
+    end
+  end
 
   def return_files(re)
     files.grep(re).map { |fn| File.join(fullpath, fn) }
@@ -219,6 +223,7 @@ class CheckedSiteUpdater < SiteUpdater
 
   def copy_files
     super
+
     touch @update_filename
   end
 
@@ -248,6 +253,17 @@ class CheckedSiteUpdater < SiteUpdater
   end
 end
 
+# Return either an updater or a conditional updater
+class UpdateFactory
+  def initialize(all)
+    @Klass = all ? SiteUpdater : CheckedSiteUpdater
+  end
+
+  def create(options)
+    @Klass.new(options)
+  end
+end
+
 #----------------------------------------------------------------------------
 # Main
 #----------------------------------------------------------------------------
@@ -259,11 +275,7 @@ if options[:dest].empty?
   exit 1
 end
 
-sup = if options[:all]
-        SiteUpdater.new(options)
-      else
-        CheckedSiteUpdater.new(options)
-      end
+sup = UpdateFactory.new(options[:all]).create(options)
 
 puts "Processing #{sup.fullpath}\nChecking PHP Files..."
 
