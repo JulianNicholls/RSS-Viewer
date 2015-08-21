@@ -90,9 +90,9 @@
           endif; ?>
         </div>
         <div class="col-sm-2">
-          <a class="bright-link" data-toggle="modal" data-target="#feeds"><span class="glyphicon glyphicon-align-justify"></span> Feeds</a>
           <a class="bright-link" href="<?php echo "$self?url=$display_url"; ?>"><span class="glyphicon glyphicon-refresh"></span> Refresh</a>
-          <a class="bright-link" href="<?php echo "$self?aggregate=1"; ?>"><span class="glyphicon glyphicon-th"></span> Aggregate</a>
+          <a class="bright-link" data-toggle="modal" data-target="#feeds"><span class="glyphicon glyphicon-align-justify"></span> Feeds List</a>
+          <a class="bright-link" href="<?php echo "$self?aggregate=1"; ?>"><span class="glyphicon glyphicon-th"></span> Aggregate Feed</a>
         </div>
       </div>
     </header>
