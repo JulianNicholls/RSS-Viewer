@@ -6,11 +6,10 @@ Left:      #0A6941
 Leftest:   #3E9C74
 Right:     #421141
 Rightest:  #500A69
-
 ***/
 
 body {
-    background: white;
+    background: #e0ffe0;
 }
 
 header {
