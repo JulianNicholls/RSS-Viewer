@@ -1,5 +1,29 @@
 /*** ARSS Editor ***/
 
+/***
+Palette.
+
+Base:      #003601
+Left:      #0a6941
+Leftest:   #3e9c74
+Right:     #421141
+Rightest:  #500a69
+***/
+
+
+body {
+    margin: 0;
+    background: #e0ffe0;
+}
+
+header {
+    padding: 20px;
+    text-align: center;
+    color: white;
+    background: #0A6941;
+    margin-bottom: 40px;
+}
+
 form#feed {
     display: none;
     margin-top: 20px;
@@ -8,4 +32,14 @@ form#feed {
     border-radius: 10px;
 }
 
-td.agg { text-align: center; }
+th.agg, td.agg, th.action, td.action { text-align: center; }
+
+thead {
+    background: #0a6941;
+    color: #421141;
+}
+
+tbody {
+    background: #3e9c74;
+    color: #500a69;
+}

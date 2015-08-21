@@ -56,9 +56,9 @@
   </head>
 
   <body>
-    <div class="well well-sm">
+    <header>
       <h1>ARSS Editor</h1>
-    </div>
+    </header>
 
     <div class="container">
       <?php if($done['func']) :
@@ -67,10 +67,9 @@
           echo $done['info'] . "\n</div>\n";
       endif; ?>
 
-      <table class="table table-bordered">
-        <caption><h2>Feeds</h2></caption>
+      <table class="table table-bordered table-condensed">
         <thead>
-          <tr><th>&nbsp;</th><th>Name</th><th>URL</th><th>Aggregate?</th></tr>
+          <tr><th class="action">Actions</th><th>Name</th><th>URL</th><th class="action">Aggregate?</th></tr>
         </thead>
         <tbody>
           <?php foreach($urllist as $cur) :
@@ -80,7 +79,7 @@
             $agg  = $cur['aggregate'] ? "Yes" : "No";
           ?>
           <tr>
-            <td>
+            <td class="action">
               <div class="btn-group btn-group-sm">
                 <button class="delete btn btn-danger btm-sm"
                         data-name="<?php echo $name; ?>"
@@ -109,7 +108,7 @@
         </tbody>
       </table>
 
-      <button id="new" class="btn btn-primary btn-large">
+      <button id="new" class="btn btn-primary btn-lg">
         <span class="glyphicon glyphicon-plus"></span> Add New Feed
       </button>
 
@@ -121,7 +120,7 @@
           <input type="hidden" id="feed-id" name="feed-id">
 
           <div class="form-group">
-            <label for="updated-name" class="col-sm-1 control-label">Name</label>
+            <label for="updated-name" class="col-sm-2 control-label">Name</label>
             <div class="col-sm-8">
               <input type="text" class="form-control"
                      id="feed-name" name="feed-name" placeholder="Name" required />
@@ -129,7 +128,7 @@
           </div>
 
           <div class="form-group">
-            <label for="updated-url" class="col-sm-1 control-label">URL</label>
+            <label for="updated-url" class="col-sm-2 control-label">URL</label>
             <div class="col-sm-8">
               <input type="url" class="form-control"
                      id="feed-url" name="feed-url" placeholder="URL" required />
@@ -137,7 +136,7 @@
           </div>
 
           <div class="form-group">
-            <div class="col-sm-offset-1 col-sm-11">
+            <div class="col-sm-offset-2 col-sm-10">
               <div class="checkbox">
                 <label>
                   <input type="checkbox" id="feed-agg" name="feed-agg"> Use in Aggregated Feed
@@ -147,7 +146,7 @@
           </div>
 
           <div class="form-group">
-            <div class="col-sm-offset-1 col-sm-11">
+            <div class="col-sm-offset-2 col-sm-10">
               <button type="submit" name="submit-button" id="submit-button" class="btn btn-primary btn-lg">
                 <span class="glyphicon glyphicon-ok-sign"></span> Update Feed
               </button>
