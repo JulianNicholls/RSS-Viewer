@@ -88,17 +88,12 @@ class SiteUpdater
 
   attr_reader :fullpath, :fulldest
 
-  #--------------------------------------------------------------------------
-  # Collect the source and base destination directories from the passed hash
-  # and store the rest of the directories for later use.
-  #--------------------------------------------------------------------------
-
   def initialize(options)
     @options  = options
     @fullpath = File.expand_path options[:dir]
-    collect_files
-
     @fulldest = File.expand_path options[:dest]
+
+    collect_files
   end
 
   #--------------------------------------------------------------------------
@@ -131,8 +126,6 @@ class SiteUpdater
 
   private
 
-  attr_reader :files
-
   def collect_files
     @files = top_level_dir.grep WEB_FILES
     @files += find_files(:cssdir, CSS_FILES)
@@ -140,7 +133,10 @@ class SiteUpdater
     @files += find_files(:idir, IMAGE_FILES)
   end
 
+  #--------------------------------------------------------------------------
   # Find the selected files in the root and also in the specified directory
+  #--------------------------------------------------------------------------
+
   def find_files(key, pattern)
     found   = top_level_dir.grep pattern
 
@@ -170,7 +166,7 @@ class SiteUpdater
   end
 
   def return_files(re)
-    files.grep(re).map { |fn| File.join(fullpath, fn) }
+    @files.grep(re).map { |fn| File.join(fullpath, fn) }
   end
 
   #--------------------------------------------------------------------------

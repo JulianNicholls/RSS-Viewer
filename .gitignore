@@ -1,7 +1,8 @@
+.sass-cache/
 *~
 *.bak
 *.swp
 cache
 simplepie/tests/*
 .updated
-
+*.css.map
