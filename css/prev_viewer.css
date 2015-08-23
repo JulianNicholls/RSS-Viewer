@@ -1,0 +1,92 @@
+/***
+Palette.
+
+Base:      #003601
+Left:      #0A6941
+Leftest:   #3E9C74
+Right:     #421141
+Rightest:  #500A69
+***/
+
+body {
+    background: #e0ffe0;
+}
+
+header {
+    background: #0A6941;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+header p {
+    margin: 0 0 1ex 1em;
+    color: white;
+}
+
+header img {
+    display: block;
+    padding: 10px 0 0 0;
+}
+
+header a {
+    color: white;
+}
+
+header a:hover {
+    color: white;
+    text-decoration: underline;
+}
+
+h1 { font-size: 150%; text-align: center; color: #fff; }
+h2 { font-size: 120%; text-align: center; color: #fff; }
+
+a.bright-link {
+    font-size: 9pt;
+    text-decoration: none;
+    display: block;
+    margin: 4px 0 0 0;
+    cursor: pointer;
+    padding: 3px 0.5em;
+    background: #3e9c74;
+    color: white;
+    transition: padding 0.5s, background 0.5s;
+}
+
+a.bright-link:hover {
+    text-decoration: none;
+    padding-left: 14px;
+    background: #003601;
+    cursor: pointer;
+}
+
+a.bright-link:first-of-type {
+    margin-top: 20px;
+}
+
+
+/*** Item Articles ***/
+
+article {
+    margin-top: 3px;
+    background: #3e9c74;
+    color: #000;
+    padding: 10px;
+    overflow: hidden;
+}
+
+article h3 {
+    font-size: 130%;
+    text-align: left;
+    margin-top: 0;
+}
+
+article a, article a:visited {
+    text-decoration: none;
+    color: #421141;
+}
+
+article a:hover {
+    text-decoration: none;
+    color: #500A69;
+    /*text-shadow: 0px -1px 1px #222, 0px 1px 1px #ddd;*/
+}

@@ -1,0 +1,84 @@
+$base_colour: #004fb0;      // A slightly Greeny Blue
+
+body {
+    background: lighten($base_colour, 50);
+}
+
+header {
+    background: $base_colour;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+
+    p {
+        margin: 0 0 1em 1em;
+        color: #eee;
+    }
+
+    img {
+        display: block;
+        padding: 10px 0 0 0;
+    }
+
+    a {
+        color: lighten($base_colour, 30);
+
+        &:hover {
+            color: lighten($base_colour, 40);
+            text-decoration: underline;
+        }
+    }
+}
+
+h1 { font-size: 150%; text-align: center; color: #fff; }
+h2 { font-size: 120%; text-align: center; color: #fff; }
+
+a.bright-link {
+    font-size: 9pt;
+    text-decoration: none;
+    display: block;
+    margin: 4px 0 0 0;
+    cursor: pointer;
+    padding: 3px 0.5em;
+    background: lighten($base_colour, 25);
+    color: darken($base_colour, 15);
+    transition: padding 0.5s, background 0.5s;
+
+    &:hover {
+        text-decoration: none;
+        padding-left: 14px;
+        background: lighten($base_colour, 15);
+        color: darken($base_colour, 15);
+        cursor: pointer;
+    }
+
+    &:first-of-type {
+        margin-top: 20px;
+    }
+}
+
+
+/*** Item Articles ***/
+
+article {
+    margin-top: 3px;
+    background: darken($base_colour, 10);
+    color: white;
+    padding: 10px;
+    overflow: hidden;
+
+    h3 {
+        font-size: 130%;
+        text-align: left;
+        margin-top: 0;
+    }
+
+    a, a:visited {
+        text-decoration: none;
+        color: lighten($base_colour, 20);
+
+        &:hover {
+            text-decoration: none;
+            color: lighten($base_colour, 30);
+        }
+    }
+}
