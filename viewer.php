@@ -136,7 +136,7 @@
         ?>
         </div>
         <div class="col-sm-2">
-          <small class="pull-right"><?php echo human_time( $item->get_date('U') ); ?></small>
+          <small class="pull-right"><?php echo human_time($item->get_date('U')); ?></small>
         </div>
       </article>
     <?php endforeach; ?>
@@ -162,7 +162,7 @@
             <a href="editor.php" class="btn btn-success">
               <i class="glyphicon glyphicon-edit"></i> Edit
             </a>
-            <button type="button" class="btn btn-warning" data-dismiss="modal">
+            <button type="button" class="btn btn-default" data-dismiss="modal">
               <i class="glyphicon glyphicon-off"></i> Close
             </button>
           </div>

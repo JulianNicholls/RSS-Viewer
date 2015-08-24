@@ -3,18 +3,18 @@
 // Summarise a text potentially, and if so, add a link to a place to read
 // the whole text.
 
-function summarised( $text, $link )
+function summarised($text, $link)
 {
 // If there's no match (no text, probably) or the text has less than 75 words
 // then just return the text unmodified.
 
-    if( preg_match('/^\s*+(?:\S++\s*+){1,75}/', $text, $matches) != 1 ||
-        strlen( $text ) == strlen( $matches[0] ) )
+    if(preg_match('/^\s*+(?:\S++\s*+){1,75}/', $text, $matches) != 1 ||
+        strlen($text) == strlen($matches[0]))
         return $text;
 
 // Otherwise, return the first 75 words and a link
 
-    return rtrim( $matches[0] ) . ' [&hellip;] ' . make_link( $link, 'Read&nbsp;More' );
+    return rtrim($matches[0] ) . ' [&hellip;] ' . make_link( $link, 'Read&nbsp;More');
 }
 
 
