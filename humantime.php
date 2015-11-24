@@ -57,9 +57,9 @@ function human_time($time, $now = 0)
         return "yesterday";             # Then Days
     elseif($days >= 1 && $days <= 2.5)
         $retval = "a couple of days";
-    elseif($days > 2.5 && $days <= 4.5)
+    elseif($days > 2.5 && $days <= 5.5)
         $retval = "a few days";
-    elseif($days > 4.5 && $days <= 8.5)
+    elseif($days > 5.5 && $days <= 8.5)
         $retval = "a week";
     elseif($days >= 11.6 && $days <= 15.5)
         $retval = "a fortnight";
