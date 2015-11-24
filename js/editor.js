@@ -2,17 +2,16 @@
 // JavaScript for the ARSS Editor
 
 $(function() {
-    // Delete button clicked, POST the id to delete via a newly-constructed
-    // form
+    // Delete button clicked, POST the id to delete.
 
     $(document).on('click', "button.delete", function() {
         if(confirm('Delete ' + this.dataset.name + ' feed?')) {
-            var $form = $('<form action="' + window.location + '" method="post">' +
-              '<input type="hidden" name="delete" value="' + this.dataset.id + '" />' +
-              '</form>');
-
-            $('body').append($form);
-            $form.submit();
+            $.post({
+                url: window.location,
+                data: {
+                    delete: this.dataset.id
+                }
+            });
         }
     });
 
@@ -31,7 +30,7 @@ $(function() {
 
         $form.find("legend").text("Update Feed");
         $form.find("#submit-button")
-            .html('<span class="glyphicon glyphicon-ok-sign"></span> Update Feed')
+            .html('<span class="fa fa-check-square"></span> Update Feed')
             .val('update');
 
         $form.slideDown(400);
@@ -55,7 +54,7 @@ $(function() {
 
         $form.find("legend").text("Add Feed");
         $form.find("#submit-button")
-            .html('<span class="glyphicon glyphicon-plus"></span> Add New Feed')
+            .html('<span class="fa fa-plus"></span> Add New Feed')
             .val('add');
 
         $form.slideDown(400);
