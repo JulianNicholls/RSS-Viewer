@@ -252,11 +252,11 @@ end
 # Return either an updater or a conditional updater
 class UpdateFactory
   def initialize(all)
-    @Klass = all ? SiteUpdater : CheckedSiteUpdater
+    @klass = all ? SiteUpdater : CheckedSiteUpdater
   end
 
   def create(options)
-    @Klass.new(options)
+    @klass.new(options)
   end
 end
 
@@ -267,7 +267,7 @@ end
 options = CommandLineParser.new.parse
 
 if options[:dest].empty?
-  puts 'You must set a destination directory or set the HTDOCS variable.'
+  puts 'You must specify a destination directory or use the HTDOCS environment variable.'
   exit 1
 end
 
