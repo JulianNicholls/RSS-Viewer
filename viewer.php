@@ -69,6 +69,7 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link href="css/viewer.css" rel="stylesheet">
   </head>
 
@@ -90,9 +91,9 @@
           endif; ?>
         </div>
         <div class="col-sm-2">
-          <a class="bright-link" href="<?php echo "$self?url=$display_url"; ?>"><span class="glyphicon glyphicon-refresh"></span> Refresh</a>
-          <a class="bright-link" data-toggle="modal" data-target="#feeds"><span class="glyphicon glyphicon-align-justify"></span> Feeds List</a>
-          <a class="bright-link" href="<?php echo "$self?aggregate=1"; ?>"><span class="glyphicon glyphicon-th"></span> Aggregate Feed</a>
+          <a class="bright-link" href="<?php echo "$self?url=$display_url"; ?>"><span class="fa fa-refresh"></span> Refresh</a>
+          <a class="bright-link" data-toggle="modal" data-target="#feeds"><span class="fa fa-list-alt"></span> Feeds List</a>
+          <a class="bright-link" href="<?php echo "$self?aggregate=1"; ?>"><span class="fa fa-magnet"></span> Aggregate Feed</a>
         </div>
       </div>
     </header>
@@ -160,10 +161,10 @@
           </div>
           <div class="modal-footer">
             <a href="editor.php" class="btn btn-success">
-              <i class="glyphicon glyphicon-edit"></i> Edit
+              <i class="fa fa-edit"></i> Edit
             </a>
             <button type="button" class="btn btn-default" data-dismiss="modal">
-              <i class="glyphicon glyphicon-off"></i> Close
+              <i class="fa fa-toggle-left"></i> Close
             </button>
           </div>
         </div>

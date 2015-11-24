@@ -52,6 +52,7 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link href="css/editor.css" rel="stylesheet">
   </head>
 
@@ -76,7 +77,7 @@
             $id   = $cur['_id'];
             $name = $cur['name'];
             $url  = $cur['url'];
-            $agg  = $cur['aggregate'] ? "Yes" : "No";
+            $agg  = $cur['aggregate'] ? '<i class="fa fa-check"></i>' : '<i class="fa fa-close"></i>';
           ?>
           <tr>
             <td class="action">
@@ -84,32 +85,32 @@
                 <button class="delete btn btn-danger btm-sm"
                         data-name="<?php echo $name; ?>"
                         data-id="<?php echo $id; ?>" title="Delete Feed">
-                  <span class="glyphicon glyphicon-remove"></span>
+                  <span class="fa fa-remove"></span>
                 </button>
                 <button class="edit btn btn-primary btm-sm"
                       data-name="<?php echo $name; ?>"
                       data-id="<?php echo $id; ?>"
                       data-url="<?php echo $url; ?>"
                       data-agg="<?php echo $cur['aggregate']; ?>" title="Edit Feed">
-                  <span class="glyphicon glyphicon-edit"></span>
+                  <span class="fa fa-edit"></span>
                 </button>
                 <button class="go btn btn-info btm-sm"
                         data-url="<?php echo $url; ?>" title="Show Feed in Viewer">
-                  <span class="glyphicon glyphicon-link"></span>
+                  <span class="fa fa-link"></span>
                 </button>
               </div>
             </td>
             <?php
               echo "<td>$name</td>\n";
               echo "<td>$url</td>\n";
-              $agg_class = ($agg == 'No') ? 'danger' : 'success';
+              $agg_class = (preg_match('/close/', $agg)) ? 'danger' : 'success';
               echo "<td class=\"agg $agg_class\">$agg</td>\n</tr>\n";
           endforeach; ?>
         </tbody>
       </table>
 
       <button id="new" class="btn btn-primary btn-lg">
-        <span class="glyphicon glyphicon-plus"></span> Add New Feed
+        <span class="fa fa-plus"></span> Add New Feed
       </button>
 
       <form id="feed" role="form" class="form-horizontal"
@@ -148,7 +149,7 @@
           <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
               <button type="submit" name="submit-button" id="submit-button" class="btn btn-primary btn-lg">
-                <span class="glyphicon glyphicon-ok-sign"></span> Update Feed
+                <span class="fa fa-check-square-o"></span> Update Feed
               </button>
             </div>
           </div>
