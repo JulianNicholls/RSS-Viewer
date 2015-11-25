@@ -16,35 +16,35 @@ class CommandLineParser
 
     @parser = OptionParser.new do |opts|
       opts.banner = "Usage:\n\t#{File.basename $PROGRAM_NAME} [options]"
-      opts.separator ""
+      opts.separator ''
 
       opts.on('-s', '--srcdir DIR',
-              "Set the source directory (Default: #{@options[:dir]})") do |dir|
+              help_text('Set the source directory', :dir)) do |dir|
         @options[:dir] = dir
       end
 
       opts.on('-o', '--destdir DIR',
-              "Set the root destination directory (Default: #{@options[:dest]})") do |dir|
+              help_text('Set the root destination directory', :dest)) do |dir|
         @options[:dest] = dir
       end
 
       opts.on('-c', '--cssdir DIR',
-              "Set the CSS directory under the root directory (Default: #{@options[:cssdir]})") do |dir|
+              help_text('Set the CSS directory under the root', :cssdir)) do |dir|
         @options[:cssdir] = dir
       end
 
       opts.on('-i', '--imagedir DIR',
-              "Set the images directory under the root directory (Default: #{@options[:idir]})") do |dir|
+              help_text('Set the images directory under the root', :idir)) do |dir|
         @options[:idir] = dir
       end
 
       opts.on('-j', '--jsdir DIR',
-              "Set the Javascript directory under the root directory (Default: #{@options[:jssdir]})") do |dir|
+              help_text('Set the Javascript directory under the root', :jsdir)) do |dir|
         @options[:jsdir] = dir
       end
 
       opts.on('-a', '--all',
-              'Copy all files, rather than updating changed files (Default: update only)') do
+              'Copy all files, rather than changed files (Default: changed only') do
         @options[:all] = true
       end
 
@@ -63,6 +63,14 @@ class CommandLineParser
     puts "Argument Error: #{err.message}"
     exit 1
   end
+
+  private
+
+  def help_text(text, option_key = nil)
+    default_text = option_key ? " (Default: #{@options[option_key]})" : ''
+
+    "#{text}#{default_text}"
+  end
 end
 
 #----------------------------------------------------------------------------
@@ -74,9 +82,9 @@ class SiteUpdater
 
   PHP_FILES   = /\.php$/i
   WEB_FILES   = /\.(php|html?)$/i
-  CSS_FILES   = /\.(sa|sc|c)ss$/i
+  CSS_FILES   = /\.(sa|sc|c)ss(\.map)?$/i
   IMAGE_FILES = /\.(png|jpe?g|gif)$/i
-  JS_FILES    = /\.js/i
+  JS_FILES    = /\.js(\.map)?/i
 
   FILE_TYPES = {
     php:    PHP_FILES,
@@ -104,7 +112,7 @@ class SiteUpdater
   def check_php_files
     lines = ''
     php_files.each { |fn| lines << `php -l #{fn}` }
-    result = (lines !~ /line \d/i)
+    result = (lines !~ /Errors/)
 
     [result, lines]
   end
