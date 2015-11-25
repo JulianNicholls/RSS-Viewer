@@ -2,6 +2,17 @@
 require 'optparse'
 require 'fileutils'
 
+# PHP file checker
+class PHPScriptChecker
+  def self.results(files)
+    lines = ''
+    files.each { |fn| lines << `php -l #{fn}` }
+    result = (lines !~ /Errors/)
+
+    [result, lines]
+  end
+end
+
 # Command line parser
 class CommandLineParser
   def initialize
@@ -29,22 +40,22 @@ class CommandLineParser
       end
 
       opts.on('-c', '--cssdir DIR',
-              help_text('Set the CSS directory under the root', :cssdir)) do |dir|
+              help_text('Set the relative CSS directory', :cssdir)) do |dir|
         @options[:cssdir] = dir
       end
 
       opts.on('-i', '--imagedir DIR',
-              help_text('Set the images directory under the root', :idir)) do |dir|
+              help_text('Set the relative images directory', :idir)) do |dir|
         @options[:idir] = dir
       end
 
       opts.on('-j', '--jsdir DIR',
-              help_text('Set the Javascript directory under the root', :jsdir)) do |dir|
+              help_text('Set the relative Javascript directory', :jsdir)) do |dir|
         @options[:jsdir] = dir
       end
 
       opts.on('-a', '--all',
-              'Copy all files, rather than changed files (Default: changed only') do
+              'Copy all files (Default: changed only') do
         @options[:all] = true
       end
 
@@ -110,11 +121,7 @@ class SiteUpdater
   #--------------------------------------------------------------------------
 
   def check_php_files
-    lines = ''
-    php_files.each { |fn| lines << `php -l #{fn}` }
-    result = (lines !~ /Errors/)
-
-    [result, lines]
+    PHPScriptChecker.results(php_files)
   end
 
   #--------------------------------------------------------------------------
@@ -275,7 +282,8 @@ end
 options = CommandLineParser.new.parse
 
 if options[:dest].empty?
-  puts 'You must specify a destination directory or use the HTDOCS environment variable.'
+  puts 'You must specify a destination directory.' \
+       ' or use the HTDOCS environment variable.'
   exit 1
 end
 
