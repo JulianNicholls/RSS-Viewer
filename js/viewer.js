@@ -6,18 +6,18 @@ $(function() {
 
     // Choose Feed button clicked: Open the feeds panel.
 
-    $("a.open-feeds").click(function() {
+    $("a.open-feeds").on('click', function() {
         $("div#feeds").slideDown(400);
     });
 
     // Close button clicked: Close the feeds panel.
 
-    $("a.close-button").click(function() {
+    $("a.close-button").on('click', function() {
         $("div#feeds").fadeOut(400);
 	});
 
     // Feed clicked on. Add a loading message
-    $("a.list-group-item").click(function() {
+    $("a.list-group-item").on('click', function() {
         $("div#feeds").append('<h3 class="text-center">Loading&hellip;</h3>');
     });
 });
@@ -25,7 +25,8 @@ $(function() {
 
 //---------------------------------------------------------------------------
 // Resize the image and main columns if a feed image doesn't fit in to a
-// one-wide column OK.
+// one-wide column OK. The image itself is resized if it still wouldn't fit
+// into two columns.
 
 function resize_columns()
 {
