@@ -1,5 +1,6 @@
 <?php
     require_once "sites.php";
+    require_once "comsubs.php";
 
     $sites = new Sites();  // open a link to the Mongo DB for a list of possible URLs to present.
 
@@ -15,7 +16,7 @@
                 'name'      => $_POST['feed-name'],
                 'url'       => $_POST['feed-url'],
                 'aggregate' => isset($_POST['feed-agg']) ? 1 : 0
-           ));
+            ));
 
             $done = array('func' => 1, 'info' => $_POST['feed-name'] . " Added");
         }
@@ -25,7 +26,7 @@
                 'name'      => $_POST['feed-name'],
                 'url'       => $_POST['feed-url'],
                 'aggregate' => isset($_POST['feed-agg']) ? 1 : 0
-           ));
+            ));
 
             $done = array('func' => 2, 'info' => $_POST['feed-name'] . " Updated");
         }
@@ -50,10 +51,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ARSS Editor</title>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-    <link href="css/editor.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/editor.css">
   </head>
 
   <body>
@@ -62,22 +63,23 @@
     </header>
 
     <div class="container">
-      <?php if($done['func']) :
-          echo '<div class="alert alert-success alert-dismissable">';
-          echo '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>';
-          echo $done['info'] . "\n</div>\n";
-      endif; ?>
+      <?php show_alert($done); ?>
 
       <table class="table table-bordered table-condensed">
         <thead>
-          <tr><th class="action">Actions</th><th>Name</th><th>URL</th><th class="action">Aggregate?</th></tr>
+          <tr>
+            <th class="action">Actions</th>
+            <th>Name</th>
+            <th>URL</th>
+            <th class="action">Aggregate?</th>
+          </tr>
         </thead>
         <tbody>
           <?php foreach($urllist as $cur) :
             $id   = $cur['_id'];
             $name = $cur['name'];
             $url  = $cur['url'];
-            $agg  = $cur['aggregate'] ? '<i class="fa fa-check"></i>' : '<i class="fa fa-close"></i>';
+            $agg  = $cur['aggregate'] ? '<i class="fa fa-check fa-2x"></i>' : '<i class="fa fa-close fa-2x"></i>';
           ?>
           <tr>
             <td class="action">
@@ -85,32 +87,32 @@
                 <button class="delete btn btn-danger btm-sm"
                         data-name="<?php echo $name; ?>"
                         data-id="<?php echo $id; ?>" title="Delete Feed">
-                  <span class="fa fa-remove"></span>
+                  <i class="fa fa-remove fa-lg"></i>
                 </button>
                 <button class="edit btn btn-primary btm-sm"
                       data-name="<?php echo $name; ?>"
                       data-id="<?php echo $id; ?>"
                       data-url="<?php echo $url; ?>"
                       data-agg="<?php echo $cur['aggregate']; ?>" title="Edit Feed">
-                  <span class="fa fa-edit"></span>
+                  <i class="fa fa-edit fa-lg"></i>
                 </button>
                 <button class="go btn btn-info btm-sm"
                         data-url="<?php echo $url; ?>" title="Show Feed in Viewer">
-                  <span class="fa fa-link"></span>
+                  <i class="fa fa-link fa-lg"></i>
                 </button>
               </div>
             </td>
             <?php
               echo "<td>$name</td>\n";
               echo "<td>$url</td>\n";
-              $agg_class = (preg_match('/close/', $agg)) ? 'danger' : 'success';
+              $agg_class = (preg_match('/close/', $agg)) ? 'no' : 'yes';
               echo "<td class=\"agg $agg_class\">$agg</td>\n</tr>\n";
           endforeach; ?>
         </tbody>
       </table>
 
       <button id="new" class="btn btn-primary btn-lg">
-        <span class="fa fa-plus"></span> Add New Feed
+        <i class="fa fa-plus"></i> Add New Feed
       </button>
 
       <form id="feed" role="form" class="form-horizontal"
@@ -148,18 +150,20 @@
 
           <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-              <button type="submit" name="submit-button" id="submit-button" class="btn btn-primary btn-lg">
-                <span class="fa fa-check-square-o"></span> Update Feed
+              <button type="submit" name="submit-button" id="submit-button" class="btn btn-primary">
+                <i class="fa fa-check-square-o"></i> Update Feed
+              </button>
+              <button class="btn btn-warning" id="cancel">
+                <i class="fa fa-toggle-left"></i> Cancel
               </button>
             </div>
           </div>
         </fieldset>
       </form>
-
     </div>      <!-- container -->
 
     <script src="http://code.jquery.com/jquery.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="js/editor.js"></script>
   </body>
 </html>
