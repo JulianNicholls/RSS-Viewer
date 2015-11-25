@@ -21,10 +21,16 @@ th.agg, td.agg, th.action, td.action {
 
 thead {
   background: #002d64;
-  color: #64a9ff; }
+  color: #97c5ff; }
 
 tbody {
-  background: #4a9bff;
+  background: #97c5ff;
   color: #00214a; }
+
+.yes {
+  color: #208020; }
+
+.no {
+  color: #802020; }
 
 /*# sourceMappingURL=editor.css.map */

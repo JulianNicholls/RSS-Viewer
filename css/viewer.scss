@@ -46,8 +46,8 @@ a.bright-link {
     &:hover {
         text-decoration: none;
         padding-left: 14px;
-        background: lighten($base_colour, 15);
-        color: darken($base_colour, 15);
+        background: lighten($base_colour, 40);
+        color: darken($base_colour, 25);
         cursor: pointer;
     }
 

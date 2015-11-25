@@ -1,4 +1,6 @@
 $base_colour: #004fb0;      // A slightly Greeny Blue
+$no_colour: #802020;
+$yes_colour: #208020;
 
 body {
     margin: 0;
@@ -25,10 +27,13 @@ th.agg, td.agg, th.action, td.action { text-align: center; }
 
 thead {
     background: darken($base_colour, 15);
-    color: lighten($base_colour, 35);
+    color: lighten($base_colour, 45);
 }
 
 tbody {
-    background: lighten($base_colour, 30);
+    background: lighten($base_colour, 45);
     color: darken($base_colour, 20);
 }
+
+.yes { color: $yes_colour; }
+.no  { color: $no_colour; }

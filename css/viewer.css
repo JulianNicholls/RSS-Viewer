@@ -40,8 +40,8 @@ a.bright-link {
   a.bright-link:hover {
     text-decoration: none;
     padding-left: 14px;
-    background: #0071fd;
-    color: #002d64;
+    background: #7db7ff;
+    color: #001631;
     cursor: pointer; }
   a.bright-link:first-of-type {
     margin-top: 20px; }
