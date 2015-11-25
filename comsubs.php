@@ -72,3 +72,14 @@ function make_links($text)
 {
     return preg_replace('/(https?:\/\/)(\S+)/', '<a href="$1$2" target="_blank">$2</a>', $text);
 }
+
+function show_alert($done)
+{
+    if($done['func'] == 0)
+        return;
+
+    echo '<div class="alert alert-success alert-dismissable" role="alert">';
+    echo '<button type="button" class="close" data-dismiss="alert" aria-label="Close">';
+    echo '<span aria-hidden="true">&times;</span></button>';
+    echo $done['info'] . "\n</div>\n";
+}
