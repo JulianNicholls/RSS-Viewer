@@ -1,86 +1,19 @@
 #!/usr/bin/env ruby -w -I.
-require 'optparse'
 require 'fileutils'
+require 'parser'
 
 # PHP file checker
 class PHPScriptChecker
-  def self.results(files)
+  def initialize(files)
+    @files = files
+  end
+
+  def results
     lines = ''
-    files.each { |fn| lines << `php -l #{fn}` }
+    @files.each { |fn| lines << `php -l #{fn}` }
     result = (lines !~ /Errors/)
 
     [result, lines]
-  end
-end
-
-# Command line parser
-class CommandLineParser
-  def initialize
-    @options = {
-      dir:      '.',
-      dest:     ENV['HTDOCS'] || '',
-      cssdir:   'css',
-      jsdir:    'js',
-      idir:     'images',
-      all:      false
-    }
-
-    @parser = OptionParser.new do |opts|
-      opts.banner = "Usage:\n\t#{File.basename $PROGRAM_NAME} [options]"
-      opts.separator ''
-
-      opts.on('-s', '--srcdir DIR',
-              help_text('Set the source directory', :dir)) do |dir|
-        @options[:dir] = dir
-      end
-
-      opts.on('-o', '--destdir DIR',
-              help_text('Set the root destination directory', :dest)) do |dir|
-        @options[:dest] = dir
-      end
-
-      opts.on('-c', '--cssdir DIR',
-              help_text('Set the relative CSS directory', :cssdir)) do |dir|
-        @options[:cssdir] = dir
-      end
-
-      opts.on('-i', '--imagedir DIR',
-              help_text('Set the relative images directory', :idir)) do |dir|
-        @options[:idir] = dir
-      end
-
-      opts.on('-j', '--jsdir DIR',
-              help_text('Set the relative Javascript directory', :jsdir)) do |dir|
-        @options[:jsdir] = dir
-      end
-
-      opts.on('-a', '--all',
-              'Copy all files (Default: changed only') do
-        @options[:all] = true
-      end
-
-      opts.on_tail('-h', '--help', 'Show this help') do
-        puts opts
-        exit
-      end
-    end
-  end
-
-  def parse
-    @parser.parse!
-
-    @options
-  rescue => err
-    puts "Argument Error: #{err.message}"
-    exit 1
-  end
-
-  private
-
-  def help_text(text, option_key = nil)
-    default_text = option_key ? " (Default: #{@options[option_key]})" : ''
-
-    "#{text}#{default_text}"
   end
 end
 
@@ -103,7 +36,7 @@ class SiteUpdater
     css:    CSS_FILES,
     image:  IMAGE_FILES,
     js:     JS_FILES
-  }
+  }.freeze
 
   attr_reader :fullpath, :fulldest
 
@@ -121,7 +54,7 @@ class SiteUpdater
   #--------------------------------------------------------------------------
 
   def check_php_files
-    PHPScriptChecker.results(php_files)
+    PHPScriptChecker(php_files).results
   end
 
   #--------------------------------------------------------------------------
