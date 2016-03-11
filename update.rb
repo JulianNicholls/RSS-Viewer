@@ -54,7 +54,7 @@ class SiteUpdater
   #--------------------------------------------------------------------------
 
   def check_php_files
-    PHPScriptChecker(php_files).results
+    PHPScriptChecker.new(php_files).results
   end
 
   #--------------------------------------------------------------------------
@@ -104,7 +104,7 @@ class SiteUpdater
   end
 
   #--------------------------------------------------------------------------
-  # Return a selection of file parameterised by the passed string.
+  # Return a selection of files parameterised by the passed string.
   #--------------------------------------------------------------------------
 
   FILE_TYPES.each do |type, regex|
