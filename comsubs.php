@@ -14,7 +14,7 @@ function summarised($text, $link)
 
 // Otherwise, return the first 75 words and a link
 
-    return rtrim($matches[0] ) . ' [&hellip;] ' . make_link( $link, 'Read&nbsp;More');
+    return rtrim($matches[0]) . ' [&hellip;] ' . make_link($link, 'Read&nbsp;More');
 }
 
 
