@@ -22,7 +22,7 @@ class Sites
     {
         $mconn  = new MongoClient();
 
-        $this->sites  = $mconn->feeds->sites;
+        $this->sites = $mconn->feeds->sites;
     }
 
     // Insert a new feed
@@ -71,20 +71,6 @@ class Sites
         return $this->cursor_to_array($cursor);
     }
 
-    // Collect and sort the urls from a MongoDB cursor.
-
-    private function cursor_to_array($cursor)
-    {
-        $urls   = array();
-
-        foreach($cursor as $cur)
-            $urls[] = $cur;
-
-        usort($urls, array("Sites", "cmp_sites"));
-
-        return $urls;
-    }
-
     // Return the data for a feed by its ID.
 
     public function find_by_id($id)
@@ -103,4 +89,17 @@ class Sites
         return $cur ? $cur : FALSE;
     }
 
+    // Collect and sort the urls from a MongoDB cursor.
+
+    private function cursor_to_array($cursor)
+    {
+        $urls = array();
+
+        foreach($cursor as $cur)
+            $urls[] = $cur;
+
+        usort($urls, array("Sites", "cmp_sites"));
+
+        return $urls;
+    }
 }
