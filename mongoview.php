@@ -4,12 +4,12 @@
     $conn = new Sites();
 
     echo "insert('blah1', 'http://blah1.com/rss.xml'): ";
-    print_r($conn->insert('blah1', 'http://blah1.com/rss.xml'));
+    print_r($conn->insert(array('name' => 'blah1', 'url' => 'http://blah1.com/rss.xml')));
 
     echo "\ninsert('blah2', 'http://blah2.com/rss.xml'): ";
-    print_r($conn->insert('blah2', 'http://blah2.com/rss.xml'));
+    print_r($conn->insert(array('name' => 'blah2', 'url' => 'http://blah2.com/rss.xml')));
 
-    show_all();
+    $first_id = show_all();
 
     try {
         echo "\nfind_by_id('invalid'):  ";
@@ -18,11 +18,11 @@
         echo "Exception Caught (OK) - " . $e->getMessage();
     }
 
-    echo "\n\nfind_by_id('52276fc44c96e60c6b928bf2'):  ";
+    echo "\n\nfind_by_id('valid but not present: 52276fc44c96e60c6b928bf2'):  ";
     echo $conn->find_by_id('52276fc44c96e60c6b928bf2') === FALSE ? "FALSE (OK)" : $conn->find_by_id('52276fc44c96e60c6b928bf2');
 
-    echo "\n\nfind_by_id('52276fc44c96e60c6b928bf1'):  ";
-    print_r($conn->find_by_id('52276fc44c96e60c6b928bf1'));
+    echo "\n\nfind_by_id($first_id):  ";
+    print_r($conn->find_by_id($first_id));
 
     echo "\n\nfind_by_name('invalid'):  ";
     echo $conn->find_by_name('invalid') == FALSE ? "FALSE (OK)" : $conn->find_by_name('invalid');
@@ -38,9 +38,9 @@
     $b3 = $conn->find_by_name('blah3');
 
     if($b3['_id'] == $b1['_id'])
-        echo "\n\nupdate() retains the ID.";
+        echo "\nupdate() retains the ID: '" . $b1['_id'] . "' == '" . $b3['_id'] . "'";
     else
-        echo "\n\n*** update() changes the ID. ***";
+        echo "\n*** update() changes the ID. ***";
 
     echo "\n\nBlah3: ";
     print_r($b3);
@@ -53,6 +53,7 @@
 
     show_all();
 
+// Show all of the stored sites and return the ID orf the first one
 
 function show_all()
 {
@@ -66,4 +67,6 @@ function show_all()
     {
         printf("  %-26s%-30s  %s\n", $cur['_id'], $cur['name'], $cur['url']);
     }
+
+    return $data[0]['_id'];
 }
