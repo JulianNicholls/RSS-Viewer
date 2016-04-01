@@ -1,6 +1,10 @@
 #!/usr/bin/env ruby -w -I.
+
+this_dir = File.expand_path(File.dirname(__FILE__))
+$LOAD_PATH.unshift(this_dir) unless $LOAD_PATH.include?(this_dir)
+
 require 'fileutils'
-require 'parser'
+require 'clparser'
 
 # PHP file checker
 class PHPScriptChecker
